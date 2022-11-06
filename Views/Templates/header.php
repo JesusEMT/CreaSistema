@@ -65,6 +65,5 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4 mt-2">
-                
+                    <div class="container-fluid px-4 mt-2">             
               
