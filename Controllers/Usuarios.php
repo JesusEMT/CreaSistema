@@ -12,29 +12,32 @@ class Usuarios extends Controller{                         #clase usuarios hered
         // if (empty($_SESSION['activo'])) {
         //     header("location: " . base_url);
         // }
-        // $data['cajas'] = $this->model->getCajas();
-        $this->views->getView($this, "index");
+        $data['cajas'] = $this->model->getCajas();
+        $this->views->getView($this, "index",$data);
     }
-    // public function listar()
-    // {
-    //     $data = $this->model->getUsuarios();
-    //     for ($i=0; $i < count($data); $i++) { 
-    //         if ($data[$i]['estado'] == 1) {
-    //             $data[$i]['estado'] = '<span class="badge bg-success">Activo</span>';
-    //             $data[$i]['acciones'] = '<div>
-    //             <button class="btn btn-primary" type="button" onclick="btnEditarUser(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
-    //             <button class="btn btn-danger" type="button" onclick="btnEliminarUser(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></i></button>
-    //             <div/>';
-    //         }else {
-    //             $data[$i]['estado'] = '<span class="badge bg-danger">Inactivo</span>';
-    //             $data[$i]['acciones'] = '<div>
-    //             <button class="btn btn-success" type="button" onclick="btnReingresarUser(' . $data[$i]['id'] . ');"><i class="fas fa-circle"></i></button>
-    //             <div/>';
-    //         }
-    //     }
-    //     echo json_encode($data, JSON_UNESCAPED_UNICODE);
-    //     die();
-    // }
+    public function listar()
+    {
+        $data = $this->model->getUsuarios();
+        for ($i=0; $i < count($data); $i++) { 
+            if ($data[$i]['estado_usuario'] == 1) {
+                $data[$i]['estado_usuario'] = '<span class="badge bg-success">Activo</span>';
+            }else{
+                $data[$i]['estado_usuario'] = '<span class="badge bg-danger">Inactivo</span>';
+            }
+            $data[$i]['acciones'] = '<div>
+                <button class="btn btn-primary" type="button">Editar</button>
+                <button class="btn btn-danger" type="button">Eliminar</button>
+            <div/>';
+            // }else {
+            //     $data[$i]['estado_usuario'] = '<span class="badge bg-danger">Inactivo</span>';
+            //     $data[$i]['acciones'] = '<div>
+            //     <button class="btn btn-success" type="button" </button>
+            //     <div/>';
+            // }
+        }
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        die();
+    }
     public function validar()
     {     
         if (empty($_POST['usuario']) || empty($_POST['pass'])) {            //verificamos si los campos estan vacios
@@ -42,7 +45,7 @@ class Usuarios extends Controller{                         #clase usuarios hered
         }else{                                                              //Si es diferente a vacio
             $usuario = $_POST['usuario'];                            
             $pass = $_POST['pass'];
-    //         $hash = hash("SHA256", $clave);
+        //         $hash = hash("SHA256", $clave);
             $data = $this->model->getUsuario($usuario,$pass);
             if ($data) {
                 $_SESSION['id_usuario'] = $data['ID_usuario'];
@@ -59,31 +62,38 @@ class Usuarios extends Controller{                         #clase usuarios hered
         die();
     }
     
-    // public function registrar()
-    // {
-    //     $usuario = $_POST['usuario'];
-    //     $nombre = $_POST['nombre'];
-    //     $clave = $_POST['clave'];
-    //     $confirmar = $_POST['confirmar'];
-    //     $caja = $_POST['caja'];
-    //     $id = $_POST['id'];
+    public function registrar()
+    {
+        //print_r($_POST);
+        $usuario = $_POST['usuario'];
+        $nombre = $_POST['nombre'];
+        $direccion = $_POST['direccion'];
+        $telefono = $_POST['telefono'];
+        $email = $_POST['email'];
+        //$estado = $_POST['estado'];
+        $pass = $_POST['pass'];
+        $confirmar = $_POST['confirmar'];
+        $caja = $_POST['caja'];
+        // $id = $_POST['id'];
+
     //     $hash = hash("SHA256", $clave);
-    //     if (empty($usuario) || empty($nombre) || empty($caja)) {
-    //         $msg = array('msg' => 'Todo los campos son obligatorios', 'icono' => 'warning');
-    //     }else{
-    //         if ($id == "") {
-    //             if($clave != $confirmar){
-    //                 $msg = array('msg' => 'Las contraseña no coinciden', 'icono' => 'warning');
-    //             }else{
-    //                 $data = $this->model->registrarUsuario($usuario, $nombre, $hash, $caja);
-    //                 if ($data == "ok") {
-    //                     $msg = array('msg' => 'Usuario registrado con éxito', 'icono' => 'success');
-    //                 }else if($data == "existe"){
-    //                     $msg = array('msg' => 'El usuario ya existe', 'icono' => 'warning');
-    //                 }else{
-    //                     $msg = array('msg' => 'Error al registrar el usuario', 'icono' => 'error');
-    //                 }
-    //             }
+        if (empty($usuario) || empty($nombre)|| empty($direccion) || empty($telefono) || 
+            empty($email) || empty($pass) || empty($confirmar) || empty($caja)) {
+            $msg = "Todos los campos son obligatorios";            
+        }else if($pass != $confirmar){
+            $msg = "Las contraseña no coinciden";
+        }else{
+            $data = $this->model->registrarUsuario($usuario, $nombre, $direccion,$telefono,$email,$pass,$caja);            //trae el metodo registrar usuario de Model
+            if ($data == "ok") {
+                $msg = "si";
+            }else if($data == "existe"){
+                $msg = "El usuario ya existe";
+            }else{
+                $msg = "Error al registrar usuario";
+            }
+        }
+        echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+        die();
     //         }else{
     //             $data = $this->model->modificarUsuario($usuario, $nombre, $caja, $id);
     //             if ($data == "modificado") {
@@ -93,9 +103,8 @@ class Usuarios extends Controller{                         #clase usuarios hered
     //             }
     //         }
     //     }
-    //     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
-    //     die();
-    // }
+        
+    }
     // public function editar(int $id)
     // {
     //     $data = $this->model->editarUser($id);

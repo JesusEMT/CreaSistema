@@ -14,13 +14,20 @@
                 </footer>
             </div>
         </div>
-        <script src="<?php echo base_url; ?>Assets/js/jquery-3.6.0.min.js"crossorigin="anonymous"></script>
+        <script src="<?php echo base_url; ?>Assets/js/jquery-3.6.1.min.js"crossorigin="anonymous"></script>
         <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>
         <!-- <script src="<?php echo base_url; ?>Assets/js/Chart.min.js" crossorigin="anonymous"></script>
         <script src="<?php echo base_url; ?>Assets/demo/chart-area-demo.js"></script>
         <script src="<?php echo base_url; ?>Assets/demo/chart-bar-demo.js"></script> -->
-        <script src="<?php echo base_url; ?>Assets/js/simple-datatables@latest.js" crossorigin="anonymous"></script>
-        <script src="<?php echo base_url; ?>Assets/demo/datatables-demo.js"></script>
+        <script src="<?php echo base_url; ?>Assets/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo base_url; ?>Assets/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="<?php echo base_url; ?>Assets/demo/datatables-demo.js"></script> -->
+       
+        <script>
+            const base_url = '<?php echo base_url; ?>';                             //Almacenamos el base_url para poder acceder desde funcion.ccs 
+        </script>    
+        <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
+        <script src="<?php echo base_url; ?>Assets/js/funcion.js"></script>
     </body>
 </html>
