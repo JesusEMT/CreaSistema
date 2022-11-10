@@ -5,6 +5,9 @@ class Query extends Conexion{
         $this->pdo = new Conexion();
         $this->con = $this->pdo->conect();
     }
+   
+   
+   //funcion select() para hacer consultas de la base de datos
     public function select(string $sql)                     
     {
         $this->sql = $sql;

@@ -1,30 +1,39 @@
-function frmLogin(e) {
+function frmLogin(e){
     e.preventDefault();
+
     const usuario = document.getElementById("usuario");
-    const clave = document.getElementById("clave");
+    const pass = document.getElementById("pass");
+
     if (usuario.value == "") {
-        clave.classList.remove("is-invalid");
+        pass.classList.remove("is-invalid");
         usuario.classList.add("is-invalid");
         usuario.focus();
-    } else if (clave.value == "") {
+    }else if (pass.value == "") {
         usuario.classList.remove("is-invalid");
-        clave.classList.add("is-invalid");
-        clave.focus();
-    } else {
+        pass.classList.add("is-invalid");
+        pass.focus()
+    }else{
         const url = base_url + "Usuarios/validar";
         const frm = document.getElementById("frmLogin");
-        const http = new XMLHttpRequest();
+        const http = new XMLHttpRequest();                         
         http.open("POST", url, true);
         http.send(new FormData(frm));
+
         http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                const res = JSON.parse(this.responseText);
-                if (res == "ok") {
-                    window.location = base_url + "Usuarios";
-                } else {
+                //console.log(this.responseText);
+                //const res = JSON.parse(this.responseText);             
+                const res= JSON.parse(this.responseText);               //parseamos 
+                console.log(res);
+                
+                if (res =="ok") {                                     //Si la respuesta es ok abimos una vista
+                    //console.log("entre");
+                    window.location = base_url+"Usuarios";           //Se concatena al controlador ya que por defecto ejecuta el metodo index
+                }else {
                     document.getElementById("alerta").classList.remove("d-none");
                     document.getElementById("alerta").innerHTML = res;
                 }
+            
             }
         }
     }

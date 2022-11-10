@@ -2,7 +2,7 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Usuarios</li>
 </ol>
-<button class="btn btn-primary mb-2" type="button" onclick="frmUsuario();">Nuevo</button>
+<button class="btn btn-primary mb-2" type="button" onclick="frmUsuario();"> <i class= "fas fa-plus">  </i></button>
 
 <table class="table table-light" id= "tblUsuarios">
     <thead class="thead-dark">
@@ -15,8 +15,8 @@
             <th>Correo</th>
             <th>Rol</th>
             <th>Estado</th>
-            <th>Acciones</th>
             <th></th>
+            <!-- <th></th> -->
         </tr>
     </thead>
     <tbody>
@@ -25,16 +25,17 @@
 <div id="nuevo_usuario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="my-modal-title">Nuevo Usuario</h5>
-                <button class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="title_modal">Nuevo Usuario</h5>                
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" id="frmUsuario">  
+                <form method="post" id="frmUsuario">                      
                     <div class="form-group">
                         <label for="usuario">Usuario *</label>
+                        <input type="hidden" id="id" name="id">
                         <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario">
                     </div>                 
                     <div class="form-group">
@@ -54,7 +55,7 @@
                         <input id="email" class="form-control" type="text" name="email" placeholder="Correo electronico">
                     </div>
                     
-                    <div class="row">
+                    <div class="row" id="passYconf">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pass">Contraseña *</label>
@@ -76,7 +77,8 @@
                             <?php } ?>
                         </select>
                     </div>  
-                    <button class="btn btn-primary" type="button" onclick="registrarUser(event);">Registrar</button>
+                    <button class="btn btn-primary" type="button" onclick="registrarUser(event);" id="btnAccionModel">Registrar</button>
+                    <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 
                 </form>
             </div>
         </div>

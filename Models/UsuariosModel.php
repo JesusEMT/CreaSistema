@@ -47,9 +47,10 @@ class UsuariosModel extends Query{                                  #heredados d
         $this->pass = $pass;
         $this->id_caja = $id_caja;
 
-        // $vericar = "SELECT * FROM usuarios WHERE usuario = '$this->usuario'";
-        // $existe = $this->select($vericar);
-        // if (empty($existe)) {
+        
+        $vericar = "SELECT * FROM usuario WHERE clave_usuario = '$this->usuario'"; //verifica si la clave_usuario(DB) es igual al usuario (varibale ingresada)
+        $existe = $this->select($vericar);                                   //se usa el metodo select creado en query
+        if (empty($existe)) {                                                //verifica si NO dato en la variable
             $sql = "INSERT INTO usuario(clave_usuario, nombre_usuario, direccion_usuario, telefono_usuario, email_usuario, password_usuario, id_caja) VALUES (?,?,?,?,?,?,?)";   //query que se enviara con nombres de base de datos
             $datos = array($this->usuario, $this->nombre,$this->direccion,$this->telefono,$this->email,$this->pass,$this->id_caja); //estos valores se envian a metodo save en Query
             $data = $this->save($sql, $datos);                              //se llama el metodo save de Query y envia los dos parametros
@@ -58,33 +59,54 @@ class UsuariosModel extends Query{                                  #heredados d
             }else{
                 $res = "error";
             }
-        // }else{
-        //     $res = "existe";
-        // }
+        }else{
+            $res = "existe";
+        }
         return $res;
     }
-    // public function modificarUsuario(string $usuario, string $nombre, int $id_caja, int $id)
-    // {
-    //     $this->usuario = $usuario;
-    //     $this->nombre = $nombre;
-    //     $this->id = $id;
-    //     $this->id_caja = $id_caja;
-    //     $sql = "UPDATE usuarios SET usuario = ?, nombre = ?, id_caja = ? WHERE id = ?";
-    //     $datos = array($this->usuario, $this->nombre, $this->id_caja, $this->id);
-    //     $data = $this->save($sql, $datos);
-    //     if ($data == 1) {
-    //         $res = "modificado";
-    //     } else {
-    //         $res = "error";
-    //     }
-    //     return $res;
-    // }
-    // public function editarUser(int $id)
-    // {
-    //     $sql = "SELECT * FROM usuarios WHERE id = $id";
-    //     $data = $this->select($sql);
-    //     return $data;
-    // }
+
+    //funcion modificar usuario recibe 7 parametros, omite pass
+    public function modificarUsuario(string $usuario, string $nombre, string $direccion, string $telefono,string $email,int $id_caja,int $id)
+    {
+        //igualamos variables con valores de paremetros recibidos
+        $this->usuario = $usuario;
+        $this->nombre = $nombre;
+        $this->direccion =$direccion;
+        $this->telefono = $telefono;
+        $this->email = $email;
+        //$this->pass = $pass;
+        $this->id_caja = $id_caja;
+        $this->id = $id;
+
+        $sql = "UPDATE usuario SET clave_usuario = ?, nombre_usuario = ?, direccion_usuario = ?, telefono_usuario = ?, email_usuario = ?, id_caja = ? WHERE ID_usuario = ?";
+        $datos = array($this->usuario, $this->nombre,$this->direccion,$this->telefono,$this->email,$this->id_caja,$this->id);
+        $data = $this->save($sql, $datos);
+        if ($data == 1) {
+            $res = "modificado";
+        } else {
+            $res = "error";
+        }
+        return $res;
+    }
+
+
+    public function editarUser(int $id_usuario)
+    {
+        $sql = "SELECT * FROM usuario WHERE ID_usuario = $id_usuario";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+    public function estadoUser(int $estado_usuario, int $id_usuario)
+    {
+        $this->id = $id_usuario;
+        $this->estado = $estado_usuario;
+        $sql = "UPDATE usuario SET estado_usuario= ? WHERE ID_usuario = ?";
+        $datos = array($this->estado, $this->id);
+        $data = $this->save($sql,$datos);
+        return $data;
+    }
+
     // public function accionUser(int $estado, int $id)
     // {
     //     $this->id = $id;
