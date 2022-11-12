@@ -1,6 +1,6 @@
 
 // tablas para listar datos
-let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias;
+let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos;
 
 //tabla usuarios
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
@@ -70,6 +70,26 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         [
            {'data': 'ID'},
            {'data': 'nombre'},
+           {'data': 'estado'},
+           {'data': 'acciones'}     
+        ]
+    } );
+})
+//tabla usuarios
+document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    tblProductos = $('#tblProductos').DataTable( {
+        ajax: {
+            url: base_url + "Productos/listar",
+            dataSrc: ''
+        },
+        columns: 
+        [
+           {'data': 'ID'},
+           {'data': 'codigo'},
+           {'data': 'nombre'},
+           {'data': 'descripcion'},
+           {'data': 'precio_venta'},
+           {'data': 'cantidad'},
            {'data': 'estado'},
            {'data': 'acciones'}     
         ]
@@ -272,7 +292,7 @@ function btnReingresarUser(ID_usuario){
 }
 // Fin de Usuarios-----------------------------------------------------------
 
-//Abre modal para registrar nuevo Cliente
+// Clientes
 function frmCliente() {
     document.getElementById("title_modal").innerHTML = "Nuevo Cliente";
     document.getElementById("btnAccionModel").innerHTML = "Registrar";
@@ -281,7 +301,6 @@ function frmCliente() {
     $("#nuevo_cliente").modal("show");    
 }
 
-//Registrar Cliente
 function registrarCli(e){
     e.preventDefault();
     const telefono = document.getElementById("telefono");         //Guarda en variables datos modal body frmUsuario de view/usuarios/index
@@ -619,11 +638,6 @@ function btnReingresarMedida(ID){
 }
 // Fin medidas
 
-
-
-
-
-
 //Categorias---------------
 function frmCategoria() {
     document.getElementById("title_modal").innerHTML = "Nueva Categoria";
@@ -792,85 +806,67 @@ function btnReingresarCat(ID){
 }
 // Fin categorias
 
-
-
-
-
-
-
-
-///--------------
-
-//Abre modal para registrar nuevo Producto
+//Producto----------------------------------------
 function frmProducto() {
-    document.getElementById("title_modal").innerHTML = "Nuevo usuario";
+    document.getElementById("title_modal").innerHTML = "Nuevo Producto";
     document.getElementById("btnAccionModel").innerHTML = "Registrar";
     document.getElementById("frmProducto").reset();                              //limpia formulario de registros de la funcion editar
     document.getElementById("id").value=""; 
     $("#nuevo_producto").modal("show");    
 }
-//Registrar Producto
+
 function registrarPro(e){
     e.preventDefault();
-    const usuario = document.getElementById("usuario");         //Guarda en variables datos modal body frmProducto de view/usuarios/index
+    const codigo = document.getElementById("codigo");         //Guarda en variables datos modal body frmProducto de view/usuarios/index
     const nombre = document.getElementById("nombre");
-    const direccion = document.getElementById("direccion");
-    const telefono = document.getElementById("telefono");
-    const email = document.getElementById("email");    
-    const pass = document.getElementById("pass");
-    const confirmar = document.getElementById("confirmar");                     //Campo confirmar contraseña de formualrio de index
-    const caja = document.getElementById("caja");  
+    const descripcion = document.getElementById("descripcion");
+    const precio_creacion = document.getElementById("precio_creacion");
+    const precio_venta = document.getElementById("precio_venta");    
+    const medida = document.getElementById("medida");
+    const categoria = document.getElementById("categoria");                     
     
 
-    if ( usuario.value == "" || nombre.value == "" || direccion.value == "" || telefono.value == "" || email.value == "" ||
-        caja.value == "") {        
+    if ( codigo.value == "" || nombre.value == "" || descripcion.value == "" || precio_creacion.value == "" || precio_venta.value == "" ||
+        medida.value == "" || categoria.value == "") {        
         Swal.fire({
             position: 'top-end',
             icon: 'error',
-            title: 'Llena todos los campos obligatoriose',
-            showConfirmButton: false,
-            timer: 3000
-          })
-    }else if (pass.value != confirmar.value) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Las contraseñas no coinciden',
+            title: 'Llena todos los campos obligatorios',
             showConfirmButton: false,
             timer: 3000
           })
     }else{
-        const url = base_url + "Usuarios/registrar";                
-        const frm = document.getElementById("frmUsuario");
+        const url = base_url + "Productos/registrar";                
+        const frm = document.getElementById("frmProducto");
         const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
         http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
         http.send(new FormData(frm));                                 //se envia al formulario
 
         http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                //console.log(this.responseText);
+                // console.log(this.responseText);
                 const res = JSON.parse(this.responseText);             //parseamos 
                 if (res =="si") {                                     //Si la respuesta es si 
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Usuario registrado con exito',
+                        title: 'Producto registrado con exito',
                         showConfirmButton: false,
                         timer: 3000
                       })
                       frm.reset();                                      //borramos formualrio
-                      $("#nuevo_usuario").modal("hide");                //oculatmos el modal(nuevo_usuario) esta en view/index
-                      tblUsuarios.ajax.reload();                        //actuliza automaticamente la vista
+                      $("#nuevo_producto").modal("hide");                //oculatmos el modal(nuevo_usuario) esta en view/index
+                      tblProductos.ajax.reload();                        //actuliza automaticamente la vista
                 }else if (res=="modificado") {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Usuario modificado con exito',
+                        title: 'Producto modificado con exito',
                         showConfirmButton: false,
                         timer: 3000
                       })
-                      $("#nuevo_usuario").modal("hide"); 
-                      tblUsuarios.ajax.reload();
+                      $("#nuevo_producto").modal("hide"); 
+                      tblProductos.ajax.reload();
                 }else{
                     Swal.fire({
                         position: 'top-end',
@@ -886,10 +882,10 @@ function registrarPro(e){
     }
 }
 
-function editarUser(ID_usuario) {
-    document.getElementById("title_modal").innerHTML = "Actualizar usuario";  //cambia el titulo del modal con id=title_modal 
+function btnEditarPro(ID) {
+    document.getElementById("title_modal").innerHTML = "Actualizar Producto";  //cambia el titulo del modal con id=title_modal 
     document.getElementById("btnAccionModel").innerHTML = "Modificar";
-    const url = base_url + "Usuarios/editar/"+ ID_usuario;
+    const url = base_url + "Productos/editar/"+ ID;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -897,24 +893,23 @@ function editarUser(ID_usuario) {
         if (this.readyState == 4 && this.status == 200) {
             //console.log(this.responseText);
             const res = JSON.parse(this.responseText);
-            document.getElementById("id").value = res.ID_usuario;                       //"id" esta oculto en el modal es input hidden
-            document.getElementById("usuario").value = res.clave_usuario;               //se cargan en el modal los elementos obtenidos de la base de datos
-            document.getElementById("nombre").value = res.nombre_usuario;               //nombre de campo modal -- nombre de arg en base de datos
-            document.getElementById("direccion").value = res.direccion_usuario;
-            document.getElementById("telefono").value = res.telefono_usuario;
-            document.getElementById("email").value = res.email_usuario;
-            //document.getElementById("pass").value = res.password_usuario;
-            document.getElementById("caja").value = res.id_caja;
-            document.getElementById("passYconf").classList.add("d-none");               //esconde "passYconf" es el id del row que las contienen funcion Bootstrap
-            $('#nuevo_usuario').modal('show');
+            document.getElementById("id").value = res.ID;                       //"id" esta oculto en el modal es input hidden
+            document.getElementById("codigo").value = res.codigo;               //se cargan en el modal los elementos obtenidos de la base de datos
+            document.getElementById("nombre").value = res.nombre;               //nombre de campo modal -- nombre de arg en base de datos
+            document.getElementById("descripcion").value = res.descripcion;
+            document.getElementById("precio_creacion").value = res.precio_creacion;            
+            document.getElementById("precio_venta").value = res.precio_venta;
+            document.getElementById("medida").value = res.id_medida;
+            document.getElementById("categoria").value = res.id_categoria;
+            $('#nuevo_producto').modal('show');
         }
     }
 }
 
-function btnEliminarUser(ID_usuario){
+function btnEliminarPro(ID){
     Swal.fire({
         title: '¿Esta seguro de eliminar?',
-        text: "El usuario no se eliminara de forma permanente, solo cambiará a Inactivo",
+        text: "El Producto no se eliminara de forma permanente, solo cambiará a Inactivo",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -923,7 +918,7 @@ function btnEliminarUser(ID_usuario){
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-            const url = base_url + "Usuarios/eliminar/"+ ID_usuario;
+            const url = base_url + "Productos/eliminar/"+ ID;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
@@ -934,10 +929,10 @@ function btnEliminarUser(ID_usuario){
                     if (res=="ok") {
                         Swal.fire(            
                             'Mensaje',
-                            'Usuario eliminado con éxito',
+                            'Producto eliminado con éxito',
                             'success'
                         )
-                        tblUsuarios.ajax.reload();                                          //recarga la tabla para ver cambios
+                        tblProductos.ajax.reload();                                          //recarga la tabla para ver cambios
                     }else{
                         Swal.fire(            
                             'Mensaje',
@@ -952,7 +947,7 @@ function btnEliminarUser(ID_usuario){
       })      
 }
 
-function btnReingresarUser(ID_usuario){
+function btnReingresarPro(ID){
     Swal.fire({
         title: '¿Esta seguro de reingresar?',
         icon: 'warning',
@@ -963,7 +958,7 @@ function btnReingresarUser(ID_usuario){
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-            const url = base_url + "Usuarios/reingresar/"+ ID_usuario;
+            const url = base_url + "Productos/reingresar/"+ ID;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
@@ -974,10 +969,10 @@ function btnReingresarUser(ID_usuario){
                     if (res=="ok") {
                         Swal.fire(            
                             'Mensaje',
-                            'Usuario reingresado con éxito',
+                            'Producto reingresado con éxito',
                             'success'
                         )
-                        tblUsuarios.ajax.reload();                                          //recarga la tabla para ver cambios
+                        tblProductos.ajax.reload();                                          //recarga la tabla para ver cambios
                     }else{
                         Swal.fire(            
                             'Mensaje',
@@ -990,5 +985,9 @@ function btnReingresarUser(ID_usuario){
           
         }
       })
+}
+
+function previsualizar(e) {
+    const url= e.target.files;    
 }
 //Fin Productos-------------------------------------------------------------

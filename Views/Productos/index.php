@@ -59,6 +59,38 @@
                             </div>
                         </div>
                     </div> 
+                      <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="medida">Medidas</label>
+                            <select id="medida" class="form-control" name="medida">                            
+                            <?php foreach ($data['medidas'] as $row) { ?>
+                                    <option value="<?php echo $row['ID']; ?>"><?php echo $row['nombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                            </div>  
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                            <label for="categoria">Categorias</label>
+                            <select id="categoria" class="form-control" name="categoria">                            
+                                <?php foreach ($data['categorias'] as $row) { ?>
+                                    <option value="<?php echo $row['ID']; ?>"><?php echo $row['nombre']; ?></option>
+                                <?php } ?>
+                            </select>
+                            </div>  
+                        </div>
+                        <!-- <div class="col-md12"></div>
+                        <div class="form-group">
+                            <label>Imagen</label>
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                <label for="imagen" class="btn btn-primary"><i class="fas fa-image"></i></label>
+                                    <input id="imagen" class="d-none" type="file" name="imagen" onchange= "previsualizar(event)">
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>                 
                     <button class="btn btn-primary" type="button" onclick="registrarPro(event);" id="btnAccionModel">Registrar</button>
                     <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 
                 </form>
