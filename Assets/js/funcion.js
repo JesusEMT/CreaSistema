@@ -1,7 +1,6 @@
 
 // tablas para listar datos
-let tblUsuarios,  tblCajas, tblMedidas, tblCategorias;
-let tblClientes;
+let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias;
 
 //tabla usuarios
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
@@ -38,6 +37,23 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'nombre'},
            {'data': 'email'},
            {'data': 'direccion'},
+           {'data': 'estado'},
+           {'data': 'acciones'}     
+        ]
+    } );
+})
+//tabla Medidas
+document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    tblMedidas = $('#tblMedidas').DataTable( {
+        ajax: {
+            url: base_url + "Medidas/listar",
+            dataSrc: ''
+        },
+        columns: 
+        [
+           {'data': 'ID'},
+           {'data': 'nombre'},
+           {'data': 'nombre_corto'},
            {'data': 'estado'},
            {'data': 'acciones'}     
         ]
@@ -432,7 +448,183 @@ function btnReingresarCli(ID){
 }
 // Fin de Cliente--------------------------------------------------------------
 
-//Abre modal para registrar nueva categoria
+
+//Medidas---------------
+function frmMedida() {
+    document.getElementById("title_modal").innerHTML = "Nueva medida";
+    document.getElementById("btnAccionModel").innerHTML = "Registrar";
+    document.getElementById("frmMedida").reset();                              //limpia formulario de registros de la funcion editar
+    $("#nuevo_medida").modal("show");    
+    document.getElementById("id").value=""; 
+}
+
+function registrarMedida(e){
+    e.preventDefault();
+    const nombre = document.getElementById("nombre");
+    const nombre_corto = document.getElementById("nombre_corto");    
+
+    if ( nombre.value == "" || nombre_corto.value == "" ) {        
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Llena todos los campos obligatorios',
+            showConfirmButton: false,
+            timer: 3000
+          })
+    }else{
+        const url = base_url + "Medidas/registrar";                
+        const frm = document.getElementById("frmMedida");
+        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+        http.send(new FormData(frm));                                 //se envia al formulario
+
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                //console.log(this.responseText);
+                const res = JSON.parse(this.responseText);             //parseamos 
+                if (res =="si") {                                     //Si la respuesta es si 
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Medida registrada con exito',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                      frm.reset();                                      //borramos formualrio
+                      $("#nuevo_medida").modal("hide");                //oculatmos el modal(nuevo_usuario) esta en view/index
+                      tblMedidas.ajax.reload();                        //actuliza automaticamente la vista
+                }else if (res=="modificado") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Medida modificada con exito',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                      $("#nuevo_medida").modal("hide"); 
+                      tblMedidas.ajax.reload();
+                }else{
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res,
+                        showConfirmButton: false,
+                        timer: 3000
+                      }) 
+                }
+            
+            }
+        }
+    }
+}
+
+function btnEditarMedida(ID) {
+    document.getElementById("title_modal").innerHTML = "Actualizar Medida";  //cambia el titulo del modal con id=title_modal 
+    document.getElementById("btnAccionModel").innerHTML = "Modificar";
+    const url = base_url + "Medidas/editar/"+ ID;
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            //console.log(this.responseText);
+            const res = JSON.parse(this.responseText);
+            document.getElementById("id").value = res.ID;                       //"id" esta oculto en el modal es input hidden
+            document.getElementById("nombre").value = res.nombre;               //nombre de campo modal -- nombre de arg en base de datos
+            document.getElementById("nombre_corto").value = res.nombre_corto;
+            $('#nuevo_medida').modal('show');
+        }
+    }
+}
+
+function btnEliminarMedida(ID){
+    Swal.fire({
+        title: '¿Esta seguro de eliminar?',
+        text: "La medida no se eliminara de forma permanente, solo cambiará a Inactivo",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "Medidas/eliminar/"+ ID;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res=="ok") {
+                        Swal.fire(            
+                            'Mensaje',
+                            'Medida eliminada con éxito',
+                            'success'
+                        )
+                        tblMedidas.ajax.reload();                                          //recarga la tabla para ver cambios
+                    }else{
+                        Swal.fire(            
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }                  
+                }
+            }
+          
+        }
+      })      
+}
+
+function btnReingresarMedida(ID){
+    Swal.fire({
+        title: '¿Esta seguro de reingresar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "Medidas/reingresar/"+ ID;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res=="ok") {
+                        Swal.fire(            
+                            'Mensaje',
+                            'Medida reingresada con éxito',
+                            'success'
+                        )
+                        tblMedidas.ajax.reload();                                          //recarga la tabla para ver cambios
+                    }else{
+                        Swal.fire(            
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }                  
+                }
+            }
+          
+        }
+      })
+}
+// Fin medidas
+
+
+
+
+
+
+//Categorias---------------
 function frmCategoria() {
     document.getElementById("title_modal").innerHTML = "Nueva Categoria";
     document.getElementById("btnAccionModel").innerHTML = "Registrar";
@@ -441,7 +633,6 @@ function frmCategoria() {
     $("#nuevo_categoria").modal("show");    
 }
 
-//Registrar Categoria
 function registrarCat(e){
     e.preventDefault();
     const nombre = document.getElementById("nombre");    
@@ -599,8 +790,7 @@ function btnReingresarCat(ID){
         }
       })
 }
-
-
+// Fin categorias
 
 
 
