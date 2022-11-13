@@ -1,6 +1,6 @@
 
 // tablas para listar datos
-let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos;
+let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes;
 
 //tabla usuarios
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         ]
     } );
 })
-//tabla usuarios
+//tabla Productos
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
     tblProductos = $('#tblProductos').DataTable( {
         ajax: {
@@ -90,6 +90,25 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'descripcion'},
            {'data': 'precio_venta'},
            {'data': 'cantidad'},
+           {'data': 'estado'},
+           {'data': 'acciones'}     
+        ]
+    } );
+})
+//tabla Ingredientes
+document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    tblIngredientes = $('#tblIngredientes').DataTable( {
+        ajax: {
+            url: base_url + "Ingredientes/listar",
+            dataSrc: ''
+        },
+        columns: 
+        [
+           {'data': 'ID'},
+           {'data': 'codigo'},
+           {'data': 'nombre'},
+           {'data': 'cantidad'},
+           {'data': 'Abreviatura'},
            {'data': 'estado'},
            {'data': 'acciones'}     
         ]
@@ -822,12 +841,13 @@ function registrarPro(e){
     const descripcion = document.getElementById("descripcion");
     const precio_creacion = document.getElementById("precio_creacion");
     const precio_venta = document.getElementById("precio_venta");    
-    const medida = document.getElementById("medida");
-    const categoria = document.getElementById("categoria");                     
+    // const medida = document.getElementById("medida");
+    const categoria = document.getElementById("categoria");   
+                   
     
 
     if ( codigo.value == "" || nombre.value == "" || descripcion.value == "" || precio_creacion.value == "" || precio_venta.value == "" ||
-        medida.value == "" || categoria.value == "") {        
+        categoria.value == "") {        
         Swal.fire({
             position: 'top-end',
             icon: 'error',
@@ -899,7 +919,7 @@ function btnEditarPro(ID) {
             document.getElementById("descripcion").value = res.descripcion;
             document.getElementById("precio_creacion").value = res.precio_creacion;            
             document.getElementById("precio_venta").value = res.precio_venta;
-            document.getElementById("medida").value = res.id_medida;
+            // document.getElementById("medida").value = res.id_medida;
             document.getElementById("categoria").value = res.id_categoria;
             $('#nuevo_producto').modal('show');
         }
@@ -991,3 +1011,179 @@ function previsualizar(e) {
     const url= e.target.files;    
 }
 //Fin Productos-------------------------------------------------------------
+
+//Ingredientes----------------------------------------
+function frmIngrediente() {
+    document.getElementById("title_modal").innerHTML = "Nuevo Ingrediente";
+    document.getElementById("btnAccionModel").innerHTML = "Registrar";
+    document.getElementById("frmIngrediente").reset();                              //limpia formulario de registros de la funcion editar
+    document.getElementById("id").value=""; 
+    $("#nuevo_ingrediente").modal("show");    
+}
+
+function registrarIngre(e){
+    e.preventDefault();
+    const codigo = document.getElementById("codigo");         //Guarda en variables datos modal body frmProducto de view/usuarios/index
+    const nombre = document.getElementById("nombre");
+    // const medida = document.getElementById("medida");
+    const cantidad = document.getElementById("cantidad");                
+    
+
+    if ( codigo.value == "" || nombre.value == "" || cantidad.value == "" ) {        
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Llena todos los campos obligatorios',
+            showConfirmButton: false,
+            timer: 3000
+          })
+    }else{
+        const url = base_url + "Ingredientes/registrar";                
+        const frm = document.getElementById("frmIngrediente");
+        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+        http.send(new FormData(frm));                                 //se envia al formulario
+
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                const res = JSON.parse(this.responseText);             //parseamos 
+                if (res =="si") {                                     //Si la respuesta es si 
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Ingrediente registrado con exito',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                      frm.reset();                                      //borramos formualrio
+                      $("#nuevo_ingrediente").modal("hide");                //oculatmos el modal(nuevo_usuario) esta en view/index
+                      tblIngredientes.ajax.reload();                        //actuliza automaticamente la vista
+                }else if (res=="modificado") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Ingrediente modificado con exito',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                      $("#nuevo_ingrediente").modal("hide"); 
+                      tblIngredientes.ajax.reload();
+                }else{
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res,
+                        showConfirmButton: false,
+                        timer: 3000
+                      }) 
+                }
+            
+            }
+        }
+    }
+}
+
+function btnEditarIngre(ID) {
+    document.getElementById("title_modal").innerHTML = "Actualizar Ingrediente";  //cambia el titulo del modal con id=title_modal 
+    document.getElementById("btnAccionModel").innerHTML = "Modificar";
+    const url = base_url + "Ingredientes/editar/"+ ID;
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            //console.log(this.responseText);
+            const res = JSON.parse(this.responseText);
+            document.getElementById("id").value = res.ID;                       //"id" esta oculto en el modal es input hidden
+            document.getElementById("codigo").value = res.codigo;               //se cargan en el modal los elementos obtenidos de la base de datos
+            document.getElementById("nombre").value = res.nombre;               //nombre de campo modal -- nombre de arg en base de datos
+            // document.getElementById("medida").value = res.id_medida;
+            document.getElementById("cantidad").value = res.cantidad;
+            $('#nuevo_ingrediente').modal('show');
+        }
+    }
+}
+
+function btnEliminarIngre(ID){
+    Swal.fire({
+        title: '¿Esta seguro de eliminar?',
+        text: "El Ingrediente no se eliminara de forma permanente, solo cambiará a Inactivo",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "Ingredientes/eliminar/"+ ID;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res=="ok") {
+                        Swal.fire(            
+                            'Mensaje',
+                            'Ingrediente eliminado con éxito',
+                            'success'
+                        )
+                        tblIngredientes.ajax.reload();                                          //recarga la tabla para ver cambios
+                    }else{
+                        Swal.fire(            
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }                  
+                }
+            }
+          
+        }
+      })      
+}
+
+function btnReingresarIngre(ID){
+    Swal.fire({
+        title: '¿Esta seguro de reingresar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url + "Ingredientes/reingresar/"+ ID;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res=="ok") {
+                        Swal.fire(            
+                            'Mensaje',
+                            'Ingredientes reingresado con éxito',
+                            'success'
+                        )
+                        tblIngredientes.ajax.reload();                                          //recarga la tabla para ver cambios
+                    }else{
+                        Swal.fire(            
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }                  
+                }
+            }
+          
+        }
+      })
+}
+
+//Fin Ingredientes -------------------------------------------------------------

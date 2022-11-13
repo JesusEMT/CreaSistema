@@ -66,6 +66,18 @@
                                 <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
                                 Productos                                
                             </a>
+                            <a class="nav-link" href="<?php echo base_url;?>Compras">
+                                <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
+                                Compras                                
+                            </a>
+                            <a class="nav-link" href="<?php echo base_url;?>Ingredientes">
+                                <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
+                                Ingredientes                                
+                            </a>
+                            <a class="nav-link" href="<?php echo base_url;?>Formulas">
+                                <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
+                                Formulas                                
+                            </a>
                         </div>
                     </div>
                 </nav>

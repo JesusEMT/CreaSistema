@@ -60,7 +60,7 @@
                         </div>
                     </div> 
                       <div class="row">
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group">
                             <label for="medida">Medidas</label>
                             <select id="medida" class="form-control" name="medida">                            
@@ -69,7 +69,7 @@
                                 <?php } ?>
                             </select>
                             </div>  
-                        </div>
+                        </div> -->
                         <div class="col-md-6">
                             <div class="form-group">
                             <label for="categoria">Categorias</label>
