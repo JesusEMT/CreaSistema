@@ -41,17 +41,34 @@ class Clientes extends Controller{                         #clase usuarios hered
     
     public function registrar()
     {
-        //print_r($_POST);
+        // print_r($_POST);
+        // exit();
         $telefono = $_POST['telefono'];
         $nombre = $_POST['nombre'];
+        $paterno = $_POST['paterno'];
+        $materno = $_POST['materno'];
         $email = $_POST['email'];
         $direccion = $_POST['direccion'];
+        $num = $_POST['num'];
         $id = $_POST['id'];
-        if (empty($telefono) || empty($nombre)|| empty($email) || empty($direccion)) {
+
+
+        if (empty($email)) {
+            $email = "Sin Correo";
+        }
+        if (empty($direccion)) {
+            $direccion = "Sin dirección"; 
+            $num = "S/N";
+        }
+        if (empty($num)) {
+            $num = "S/N";
+        }
+
+        if (empty($telefono) || empty($nombre)|| empty($paterno) || empty($materno)) {
             $msg = "Todos los campos son obligatorios";  
         }else{
             if ($id == "") {                       //Si es vacio se hara la INSERT
-                    $data = $this->model->registrarClientes($telefono,$nombre,$email,$direccion);            //trae el metodo registrar usuario de Model
+                    $data = $this->model->registrarClientes($telefono, $nombre, $paterno, $materno, $email, $direccion, $num);            //trae el metodo registrar usuario de Model
                     if ($data == "ok") {
                         $msg = "si";
                     }else if($data == "existe"){
@@ -61,7 +78,7 @@ class Clientes extends Controller{                         #clase usuarios hered
                     }
                     
             }else{
-                $data = $this->model->modificarCliente($telefono,$nombre,$email,$direccion,$id);            //trae el metodo editar usuario de Model
+                $data = $this->model->modificarCliente($telefono, $nombre, $paterno, $materno, $email, $direccion, $num, $id);            //trae el metodo editar usuario de Model
                 if ($data =="modificado") {
                     $msg = "modificado";
                 }else{

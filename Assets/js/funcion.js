@@ -1,6 +1,6 @@
 
 // tablas para listar datos
-let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes;
+let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes,tblCompras;
 
 //tabla usuarios
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
@@ -14,7 +14,10 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'ID_usuario'},
            {'data': 'clave_usuario'},
            {'data': 'nombre_usuario'},
+           {'data': 'paterno_usuario'},
+           {'data': 'materno_usuario'},
            {'data': 'direccion_usuario'},
+           {'data': 'num_dir'},
            {'data': 'telefono_usuario'},
            {'data': 'email_usuario'},
            {'data': 'nombre_caja'},
@@ -35,8 +38,11 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'ID'},
            {'data': 'telefono'},
            {'data': 'nombre'},
+           {'data': 'paterno_cli'},
+           {'data': 'materno_cli'},
            {'data': 'email'},
            {'data': 'direccion'},
+           {'data': 'num_dir_cli'},
            {'data': 'estado'},
            {'data': 'acciones'}     
         ]
@@ -87,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'ID'},
            {'data': 'codigo'},
            {'data': 'nombre'},
-           {'data': 'descripcion'},
+        //    {'data': 'descripcion'},
            {'data': 'precio_venta'},
            {'data': 'cantidad'},
            {'data': 'estado'},
@@ -114,10 +120,27 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         ]
     } );
 })
+//tabla Compras/añadir producto a stock
+document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    tblCompras = $('#tblCompras').DataTable( {
+        ajax: {
+            url: base_url + "IngresarProducto/listar",
+            dataSrc: ''
+        },
+        columns: 
+        [
+        //    {'data': 'ID'},
+           {'data': 'codigo'},
+           {'data': 'nombre'},
+           {'data': 'cantidad'},
+           {'data': 'estado'}  
+        ]
+    } );
+})
 
 //----------------------------------------------------------------------------------------------------
 
-//Abre modal para registrar nuevo usuario
+//Usuarios
 function frmUsuario() {
     document.getElementById("title_modal").innerHTML = "Nuevo usuario";
     document.getElementById("btnAccionModel").innerHTML = "Registrar";
@@ -127,12 +150,14 @@ function frmUsuario() {
     document.getElementById("id").value=""; 
 }
 
-//Registrar Usuario
 function registrarUser(e){
     e.preventDefault();
     const usuario = document.getElementById("usuario");         //Guarda en variables datos modal body frmUsuario de view/usuarios/index
     const nombre = document.getElementById("nombre");
+    const paterno = document.getElementById("paterno");
+    const materno = document.getElementById("materno");
     const direccion = document.getElementById("direccion");
+    const num = document.getElementById("num");
     const telefono = document.getElementById("telefono");
     const email = document.getElementById("email");    
     const pass = document.getElementById("pass");
@@ -140,12 +165,12 @@ function registrarUser(e){
     const caja = document.getElementById("caja");  
     
 
-    if ( usuario.value == "" || nombre.value == "" || direccion.value == "" || telefono.value == "" || email.value == "" ||
+    if ( usuario.value == "" || nombre.value == "" || paterno.value == "" || materno.value == "" || direccion.value == "" || num.value == ""|| telefono.value == "" || email.value == "" ||
         caja.value == "") {        
         Swal.fire({
             position: 'top-end',
             icon: 'error',
-            title: 'Llena todos los campos obligatoriose',
+            title: 'Llena todos los campos obligatorios',
             showConfirmButton: false,
             timer: 3000
           })
@@ -218,7 +243,10 @@ function editarUser(ID_usuario) {
             document.getElementById("id").value = res.ID_usuario;                       //"id" esta oculto en el modal es input hidden
             document.getElementById("usuario").value = res.clave_usuario;               //se cargan en el modal los elementos obtenidos de la base de datos
             document.getElementById("nombre").value = res.nombre_usuario;               //nombre de campo modal -- nombre de arg en base de datos
+            document.getElementById("paterno").value = res.paterno_usuario;
+            document.getElementById("materno").value = res.materno_usuario;
             document.getElementById("direccion").value = res.direccion_usuario;
+            document.getElementById("num").value = res.num_dir;
             document.getElementById("telefono").value = res.telefono_usuario;
             document.getElementById("email").value = res.email_usuario;
             //document.getElementById("pass").value = res.password_usuario;
@@ -324,15 +352,18 @@ function registrarCli(e){
     e.preventDefault();
     const telefono = document.getElementById("telefono");         //Guarda en variables datos modal body frmUsuario de view/usuarios/index
     const nombre = document.getElementById("nombre");
+    const paterno = document.getElementById("paterno");
+    const materno = document.getElementById("materno");
     const email = document.getElementById("email");
-    const direccion = document.getElementById("direccion");  
+    const direccion = document.getElementById("direccion");
+    const num = document.getElementById("num");
     
 
-    if ( telefono.value == "" || nombre.value == "" || email.value == "" || direccion.value == "") {        
+    if ( telefono.value == "" || nombre.value == "" || paterno.value == "" || materno.value == "") {        
         Swal.fire({
             position: 'top-end',
             icon: 'error',
-            title: 'Llena todos los campos obligatoriose',
+            title: 'Llena todos los campos obligatorios',
             showConfirmButton: false,
             timer: 3000
           })
@@ -345,7 +376,7 @@ function registrarCli(e){
 
         http.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                //console.log(this.responseText);
+                // console.log(this.responseText);
                 const res = JSON.parse(this.responseText);             //parseamos 
                 if (res =="si") {                                     //Si la respuesta es si 
                     Swal.fire({
@@ -397,8 +428,11 @@ function editarCli(ID) {
             document.getElementById("id").value = res.ID;                       //"id" esta oculto en el modal es input hidden
             document.getElementById("telefono").value = res.telefono;
             document.getElementById("nombre").value = res.nombre;               //nombre de campo modal -- nombre de arg en base de datos
+            document.getElementById("paterno").value = res.paterno_cli; 
+            document.getElementById("materno").value = res.materno_cli; 
             document.getElementById("email").value = res.email;
             document.getElementById("direccion").value = res.direccion;
+            document.getElementById("num").value = res.num_dir_cli; 
             $('#nuevo_cliente').modal('show');
         }
     }
@@ -838,7 +872,7 @@ function registrarPro(e){
     e.preventDefault();
     const codigo = document.getElementById("codigo");         //Guarda en variables datos modal body frmProducto de view/usuarios/index
     const nombre = document.getElementById("nombre");
-    const descripcion = document.getElementById("descripcion");
+    // const descripcion = document.getElementById("descripcion");
     const precio_creacion = document.getElementById("precio_creacion");
     const precio_venta = document.getElementById("precio_venta");    
     // const medida = document.getElementById("medida");
@@ -846,7 +880,7 @@ function registrarPro(e){
                    
     
 
-    if ( codigo.value == "" || nombre.value == "" || descripcion.value == "" || precio_creacion.value == "" || precio_venta.value == "" ||
+    if ( codigo.value == "" || nombre.value == "" || precio_creacion.value == "" || precio_venta.value == "" ||
         categoria.value == "") {        
         Swal.fire({
             position: 'top-end',
@@ -916,7 +950,7 @@ function btnEditarPro(ID) {
             document.getElementById("id").value = res.ID;                       //"id" esta oculto en el modal es input hidden
             document.getElementById("codigo").value = res.codigo;               //se cargan en el modal los elementos obtenidos de la base de datos
             document.getElementById("nombre").value = res.nombre;               //nombre de campo modal -- nombre de arg en base de datos
-            document.getElementById("descripcion").value = res.descripcion;
+            // document.getElementById("descripcion").value = res.descripcion;
             document.getElementById("precio_creacion").value = res.precio_creacion;            
             document.getElementById("precio_venta").value = res.precio_venta;
             // document.getElementById("medida").value = res.id_medida;
@@ -1166,11 +1200,8 @@ function btnReingresarIngre(ID){
                     //console.log(this.responseText);
                     const res = JSON.parse(this.responseText);
                     if (res=="ok") {
-                        Swal.fire(            
-                            'Mensaje',
-                            'Ingredientes reingresado con éxito',
-                            'success'
-                        )
+                        
+                        
                         tblIngredientes.ajax.reload();                                          //recarga la tabla para ver cambios
                     }else{
                         Swal.fire(            
@@ -1187,3 +1218,214 @@ function btnReingresarIngre(ID){
 }
 
 //Fin Ingredientes -------------------------------------------------------------
+
+
+//Agregar prodcto a stock /compras
+
+function frmCompra() {
+    document.getElementById("title_modal").innerHTML = "Nueva";
+    document.getElementById("btnAgregar").innerHTML = "Agregar";
+    document.getElementById("frmCompra").reset();                              //limpia formulario de registros de la funcion editar
+    document.getElementById("id").value=""; 
+    // $("#nuevo_producto").modal("show");    
+}
+
+function buscarCodigo(e) {
+    e.preventDefault();
+
+    // if (e.which == 13 ) {                                                //al presionar tecla enter
+        const cod = document.getElementById("codigo").value;
+        const url = base_url + "IngresarProducto/buscar/"+ cod;                  // controlador/metodo/argumentos
+
+        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+        http.open("GET", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+        http.send();                                                 //se envia al formulario
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res) {                                                        //Si existe res carga los valores en el documento
+                        document.getElementById("nombre").value = res.nombre;         
+                        document.getElementById("id").value = res.ID;   
+                        document.getElementById("precio_creacion").value = res.precio_creacion;      
+                        document.getElementById("cantidad_ingresar").focus();
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: "Producto no existe",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        document.getElementById("codigo").value='';
+                        document.getElementById("nombre").value='';
+                        document.getElementById("cantidad_ingresar").value= null;
+                        document.getElementById("codigo").focus();    
+
+                    }            
+                }
+            }
+}
+
+function AgregarPro(e) {
+    e.preventDefault();    
+    
+    const cant = document.getElementById("cantidad_ingresar");
+    const precio_creacion = document.getElementById("precio_creacion");    
+    const codigo = document.getElementById("codigo").value;
+    const descripcion = document.getElementById("descripcion");
+
+    document.getElementById("costo_total").value = cant* precio_creacion;
+
+    // console.log(codigo,cant, precio_creacion, descripcion);
+
+
+    // if (e.which == 13 ) { 
+        if ( codigo.value == "" || cant.value == "" || descripcion.value == "" ) {        
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Llena todos los campos',
+                showConfirmButton: false,
+                timer: 3000
+              })
+        }
+        else{
+            if (cant.value >0) {                   
+                Swal.fire({
+                    title: '¿Esta seguro de agregar productos al almacén?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const url = base_url + "IngresarProducto/ingresar";                
+                        const frm = document.getElementById("frmCompra");
+                        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+                        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+                        http.send(new FormData(frm));                                 //se envia al formulario
+                        http.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                // console.log(this.responseText);
+                                const res = JSON.parse(this.responseText);
+                                if (res=="ok") {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Productos agregados al almacén con éxito',
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    })
+                                    //   $("#nuevo_ingrediente").modal("hide"); 
+                                    tblCompras.ajax.reload();
+                                    document.getElementById("frmCompra").reset();       //limpia formulario de registros de la funcion editar
+                                }else{
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'error',
+                                        title: res,
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    }) 
+                                }
+                            }
+                        }                 
+                    }
+                }) 
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Cantidad debe ser mayor a cero',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
+            }              
+        }
+    // }    
+}
+
+function btnEliminarPro(e) {
+    e.preventDefault();    
+    
+    const cant = document.getElementById("cantidad_ingresar");
+    const precio_creacion = document.getElementById("precio_creacion");    
+    const codigo = document.getElementById("codigo").value;
+    const descripcion = document.getElementById("descripcion");
+    document.getElementById("costo_total").value = cant* precio_creacion;
+
+    // console.log(codigo,cant, precio_creacion, descripcion);
+
+
+    // if (e.which == 13 ) { 
+        if ( codigo.value == "" || cant.value == "" || descripcion.value == "" ) {        
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Llena todos los campos',
+                showConfirmButton: false,
+                timer: 3000
+              })
+        }
+        else{
+            if (cant.value >0) {                   
+                Swal.fire({
+                    title: '¿Esta seguro de eliminar productos al almacén?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const url = base_url + "IngresarProducto/eliminar";                
+                        const frm = document.getElementById("frmCompra");
+                        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+                        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+                        http.send(new FormData(frm));                                 //se envia al formulario
+                        http.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                // console.log(this.responseText);
+                                const res = JSON.parse(this.responseText);
+                                if (res=="ok") {
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Productos eliminados del almacén con éxito',
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    })
+                                    //   $("#nuevo_ingrediente").modal("hide"); 
+                                    tblCompras.ajax.reload();
+                                    document.getElementById("frmCompra").reset();       //limpia formulario de registros de la funcion editar
+                                }else{
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'error',
+                                        title: res,
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    }) 
+                                }
+                            }
+                        }                 
+                    }
+                }) 
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Cantidad debe ser mayor a cero',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
+            }              
+        }
+    // }    
+}
+
+

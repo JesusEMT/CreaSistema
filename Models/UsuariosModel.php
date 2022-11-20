@@ -1,7 +1,7 @@
 <?php
 class UsuariosModel extends Query{                                  #heredados de clase Query
    
-    private $usuario, $nombre, $direccion, $telefono, $email, $pass, $id_caja, $id, $estado;
+    private $usuario, $nombre,$paterno,$materno, $direccion, $num, $telefono, $email, $pass, $id_caja, $id, $estado;
     
     //funcion constructor
     public function __construct()
@@ -35,13 +35,16 @@ class UsuariosModel extends Query{                                  #heredados d
         return $data;
     }
 
-    //funcion para registrar usuarios, recibe 7 parametros
-    public function registrarUsuario(string $usuario, string $nombre, string $direccion, string $telefono,string $email,string $pass, int $id_caja)
+    //funcion para registrar usuarios, recibe 10 parametros
+    public function registrarUsuario(string $usuario, string $nombre,string $paterno,string $materno, string $direccion,string $num, string $telefono,string $email,string $pass, int $id_caja)
     {
         //igualamos variables con valores de paremetros recibidos
         $this->usuario = $usuario;
         $this->nombre = $nombre;
+        $this->paterno = $paterno;
+        $this->materno = $materno;
         $this->direccion =$direccion;
+        $this->num = $num;
         $this->telefono = $telefono;
         $this->email = $email;
         $this->pass = $pass;
@@ -51,8 +54,8 @@ class UsuariosModel extends Query{                                  #heredados d
         $vericar = "SELECT * FROM usuario WHERE clave_usuario = '$this->usuario'"; //verifica si la clave_usuario(DB) es igual al usuario (varibale ingresada)
         $existe = $this->select($vericar);                                   //se usa el metodo select creado en query
         if (empty($existe)) {                                                //verifica si NO dato en la variable
-            $sql = "INSERT INTO usuario(clave_usuario, nombre_usuario, direccion_usuario, telefono_usuario, email_usuario, password_usuario, id_caja) VALUES (?,?,?,?,?,?,?)";   //query que se enviara con nombres de base de datos
-            $datos = array($this->usuario, $this->nombre,$this->direccion,$this->telefono,$this->email,$this->pass,$this->id_caja); //estos valores se envian a metodo save en Query
+            $sql = "INSERT INTO usuario(clave_usuario, nombre_usuario, paterno_usuario, materno_usuario, direccion_usuario, num_dir, telefono_usuario, email_usuario, password_usuario, id_caja) VALUES (?,?,?,?,?,?,?,?,?,?)";   //query que se enviara con nombres de base de datos
+            $datos = array($this->usuario, $this->nombre,$this->paterno,$this->materno,$this->direccion,$this->num,$this->telefono,$this->email,$this->pass,$this->id_caja); //estos valores se envian a metodo save en Query
             $data = $this->save($sql, $datos);                              //se llama el metodo save de Query y envia los dos parametros
             if ($data == 1) {                                               //verifica si el insert fue correcto
                 $res = "ok";
@@ -65,21 +68,24 @@ class UsuariosModel extends Query{                                  #heredados d
         return $res;
     }
 
-    //funcion modificar usuario recibe 7 parametros, omite pass
-    public function modificarUsuario(string $usuario, string $nombre, string $direccion, string $telefono,string $email,int $id_caja,int $id)
+    //funcion modificar usuario recibe 10 parametros, omite pass
+    public function modificarUsuario(string $usuario, string $nombre,string $paterno,string $materno, string $direccion,string $num, string $telefono,string $email,int $id_caja,int $id)
     {
         //igualamos variables con valores de paremetros recibidos
         $this->usuario = $usuario;
         $this->nombre = $nombre;
+        $this->paterno = $paterno;
+        $this->materno = $materno;
         $this->direccion =$direccion;
+        $this->num = $num;
         $this->telefono = $telefono;
         $this->email = $email;
         //$this->pass = $pass;
         $this->id_caja = $id_caja;
         $this->id = $id;
 
-        $sql = "UPDATE usuario SET clave_usuario = ?, nombre_usuario = ?, direccion_usuario = ?, telefono_usuario = ?, email_usuario = ?, id_caja = ? WHERE ID_usuario = ?";
-        $datos = array($this->usuario, $this->nombre,$this->direccion,$this->telefono,$this->email,$this->id_caja,$this->id);
+        $sql = "UPDATE usuario SET clave_usuario = ?, nombre_usuario = ?,paterno_usuario = ?,materno_usuario = ?, direccion_usuario = ?, num_dir = ?, telefono_usuario = ?, email_usuario = ?, id_caja = ? WHERE ID_usuario = ?";
+        $datos = array($this->usuario, $this->nombre,$this->paterno,$this->materno,$this->direccion,$this->num,$this->telefono,$this->email,$this->id_caja,$this->id);
         $data = $this->save($sql, $datos);
         if ($data == 1) {
             $res = "modificado";
@@ -107,14 +113,5 @@ class UsuariosModel extends Query{                                  #heredados d
         return $data;
     }
 
-    // public function accionUser(int $estado, int $id)
-    // {
-    //     $this->id = $id;
-    //     $this->estado = $estado;
-    //     $sql = "UPDATE usuarios SET estado = ? WHERE id = ?";
-    //     $datos = array($this->estado, $this->id);
-    //     $data = $this->save($sql, $datos);
-    //     return $data;
-    // }
 }
 ?>

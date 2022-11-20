@@ -19,6 +19,7 @@ class Productos extends Controller{                         #clase usuarios here
         $data['categorias'] = $this->model->getCategorias();
         $this->views->getView($this, "index",$data);
     }
+    
     public function listar()
     {
         $data = $this->model->getProductos();
@@ -39,28 +40,27 @@ class Productos extends Controller{                         #clase usuarios here
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
-    }
+    }  
 
-    
     public function registrar()
     {
         // print_r($_POST);
         // exit;
         $codigo = $_POST['codigo'];
         $nombre = $_POST['nombre'];
-        $descripcion = $_POST['descripcion'];
+        // $descripcion = $_POST['descripcion'];
         $precio_creacion = $_POST['precio_creacion'];
         $precio_venta = $_POST['precio_venta'];
         // $medida = $_POST['medida'];
         $categoria = $_POST['categoria'];
         $id = $_POST['id'];
 
-        if (empty($codigo) || empty($nombre)|| empty($descripcion) || empty($precio_creacion) || 
+        if (empty($codigo) || empty($nombre) || empty($precio_creacion) || 
             empty($precio_venta) || empty($categoria)) {
             $msg = "Todos los campos son obligatorios";  
         }else{
             if ($id == "") {
-                $data = $this->model->registrarProducto($codigo,$nombre,$descripcion,$precio_creacion,$precio_venta,$categoria);            //trae el metodo registrar producto de Model
+                $data = $this->model->registrarProducto($codigo,$nombre,$precio_creacion,$precio_venta,$categoria);            //trae el metodo registrar producto de Model
                 if ($data == "ok") {
                     $msg = "si";
                 }else if($data == "existe"){
@@ -69,7 +69,7 @@ class Productos extends Controller{                         #clase usuarios here
                     $msg = "Error al registrar producto";
                 }   
             }else{
-                $data = $this->model->modificarProducto($codigo,$nombre,$descripcion,$precio_creacion,$precio_venta,$categoria,$id);            //trae el metodo editar usuario de Model
+                $data = $this->model->modificarProducto($codigo,$nombre,$precio_creacion,$precio_venta,$categoria,$id);            //trae el metodo editar usuario de Model
                 if ($data =="modificado") {
                     $msg = "modificado";
                 }else{
@@ -80,6 +80,7 @@ class Productos extends Controller{                         #clase usuarios here
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
     }
+
     public function editar(int $id)
     {       
         $data = $this->model->editarPro($id);

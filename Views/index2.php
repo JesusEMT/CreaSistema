@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-<title>VLP VENTAS</title>
+<title>CREA SISTEMA</title>
 <link rel="shortcut icon" href="../creacosmetica.png">
 <style>
 * {margin: 0;padding: 0;box-sizing: border-box;color: #ddd;font-family: "Helvetica";}
@@ -37,33 +37,34 @@ button[type="submit"]:hover {background-color:#f09f1f;}
 </style>
 </head>
 
-<body>
+    <body>
 
-<div class="container">
+    <div class="container">
 
-<div class="loginBox">
-<center><img src="../public/img/logo_ac.png" width="320"></center>
-<script src="<?php echo base_url; ?>logo crea.png"></script>
+        <div class="loginBox">        
+            <center><img src="../public/img/logo_ac.png" width="320"></center>
+            <script src="<?php echo base_url; ?>logo crea.png"></script>
 
-<br>
-<form id="frmLogin">
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Ingrese usuario" />
-                                                <label for="usuario">Usuario</label>
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="pass" name="pass" type="password" placeholder="Ingrese contraseña" />
-                                                <label for="pass">Contraseña</label>
-                                            </div>
-                                            <div class="alert alert-danger text-center d-none" id="alerta" role="alert">                                                
-                                            </div>
-                                            <div class="form group d-flex align-items-center justify-content-between mt-4 mb-0">                                            
-                                               <button class="btn btn-primary" type="submit" onclick="frmLogin(event);">Entrar</button>
-                                            </div>
-                                        </form>
-</div>
+            <br>
+            <form id="frmLogin">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Ingrese usuario" />
+                <label for="usuario">Usuario</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" id="pass" name="pass" type="password" placeholder="Ingrese contraseña" />
+                <label for="pass">Contraseña</label>
+            </div>
+            <div class="alert alert-danger text-center d-none" id="alerta" role="alert">                                                
+            </div>
+            <div class="form group d-flex align-items-center justify-content-between mt-4 mb-0">                                            
+                <button class="btn btn-primary" type="submit" onclick="frmLogin(event);">Entrar</button>
+            </div>
+            </form>
+    </div>
 
-<!--<p class="or"> <span></span> Síguenos <span></span> </p>
+
+<p class="or"> <span></span> Síguenos <span></span> </p>
 
 <div class="social-login">
 <button><i class="fab fa-facebook-f"></i>facebook</button>
@@ -71,8 +72,22 @@ button[type="submit"]:hover {background-color:#f09f1f;}
 </div>
 
 <p class="additional-act">Dise&ntilde;o & Desarrollo: <span> Área Sistemas</span></p>
--->
+
 </div>
+<div id="layoutAuthentication_footer">
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Crea Sistema <?php echo date("Y") ?></div>
+                <div>
+                    <!-- <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div> -->
 
 <script src="<?php echo base_url; ?>Assets/js/jquery-3.6.1.min.js"crossorigin="anonymous"></script>
         <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>

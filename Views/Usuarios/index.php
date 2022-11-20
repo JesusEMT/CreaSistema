@@ -7,10 +7,13 @@
 <table class="table table-light" id= "tblUsuarios">
     <thead class="thead-dark">
         <tr>
-            <th>ID_usuario</th>
+            <th>ID</th>
             <th>Usuario</th>
             <th>Nombre</th>
+            <th>A. Paterno.</th>
+            <th>A. Materno</th>
             <th>Dirección</th>
+            <th>Num</th>
             <th>Telefono</th>
             <th>Correo</th>
             <th>Rol</th>
@@ -38,14 +41,34 @@
                         <input type="hidden" id="id" name="id">
                         <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario">
                     </div>                 
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label for="nombre">Nombre *</label>
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre del usuario">
+                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre">
                     </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección *</label>
-                        <input id="direccion" class="form-control" type="text" name="direccion" placeholder="Direccion">
+                    <div class="form-group ">
+                        <label for="paterno">Apellido paterno *</label>
+                        <input id="paterno" class="form-control" type="text" name="paterno" placeholder="Apellido paterno">
                     </div>
+                    <div class="form-group ">
+                        <label for="materno">Apellido materno *</label>
+                        <input id="materno" class="form-control" type="text" name="materno" placeholder="Apellido materno">
+                    </div>
+
+                    <div class="row" id="dirYnum">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="direccion">Dirección *</label>
+                                <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección" rows="2"></textarea>
+
+                            </div>                           
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="num">Número *</label>
+                                <input id="num" class="form-control" type="number" name="num" placeholder="Núm.">
+                            </div>
+                        </div>
+                    </div> 
                     <div class="form-group">
                         <label for="telefono">Telefono *</label>
                         <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Teléfono">
@@ -53,8 +76,7 @@
                     <div class="form-group">
                         <label for="email">Correo electronico *</label>
                         <input id="email" class="form-control" type="text" name="email" placeholder="Correo electronico">
-                    </div>
-                    
+                    </div>                    
                     <div class="row" id="passYconf">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -77,8 +99,8 @@
                             <?php } ?>
                         </select>
                     </div>  
-                    <button class="btn btn-primary" type="button" onclick="registrarUser(event);" id="btnAccionModel">Registrar</button>
-                    <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 
+                    <button class="btn btn-primary mt-2" type="button" onclick="registrarUser(event);" id="btnAccionModel">Registrar</button>
+                    <button class="btn btn-danger mt-2" type="button"data-bs-dismiss="modal">Cancelar</button> 
                 </form>
             </div>
         </div>

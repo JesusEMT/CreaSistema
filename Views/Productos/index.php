@@ -1,16 +1,19 @@
 <?php include "Views/Templates/header.php"; ?>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Productos</li>
-</ol>
-<button class="btn btn-primary mb-2" type="button" onclick="frmProducto();"> <i class= "fas fa-plus">  </i></button>
+<!-- <ol class="breadcrumb mb-4 ">
+<li class="breadcrumb-item active">Productos</li>
+</ol> -->
+<div class="card-header text-white" style="background-color: #C3FAFC;">
+        <h4>Productos </h4>
+    </div>
+<button class="btn btn-primary mb-2 mt-3" type="button" onclick="frmProducto();"> <i class= "fas fa-plus">  </i></button>
 
 <table class="table table-light" id= "tblProductos">
     <thead class="thead-dark">
         <tr>
-            <th>ID</th>
+            <th>No.</th>
             <th>Código</th>
             <th>Nombre</th>
-            <th>Descripción</th>
+            <!-- <th>Descripción</th> -->
             <th>Precio</th>
             <th>Stock</th>
             <th>Estado</th>
@@ -41,10 +44,10 @@
                         <label for="nombre">Nombre *</label>
                         <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre del producto">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="descripcion">Descripción *</label>
                         <input id="descripcion" class="form-control" type="text" name="descripcion" placeholder="Descripción">
-                    </div>                   
+                    </div>                    -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -91,8 +94,8 @@
                             </div>
                         </div> -->
                     </div>                 
-                    <button class="btn btn-primary" type="button" onclick="registrarPro(event);" id="btnAccionModel">Registrar</button>
-                    <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 
+                    <button class="btn btn-primary mt-2" type="button" onclick="registrarPro(event);" id="btnAccionModel">Registrar</button>
+                    <button class="btn btn-danger mt-2" type="button"data-bs-dismiss="modal">Cancelar</button> 
                 </form>
             </div>
         </div>

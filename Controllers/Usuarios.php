@@ -74,7 +74,10 @@ class Usuarios extends Controller{                         #clase usuarios hered
         //print_r($_POST);
         $usuario = $_POST['usuario'];
         $nombre = $_POST['nombre'];
+        $paterno = $_POST['paterno'];
+        $materno = $_POST['materno'];
         $direccion = $_POST['direccion'];
+        $num = $_POST['num'];
         $telefono = $_POST['telefono'];
         $email = $_POST['email'];
         //$estado = $_POST['estado'];
@@ -84,7 +87,7 @@ class Usuarios extends Controller{                         #clase usuarios hered
         $id = $_POST['id'];
 
         $hash = hash("SHA256", $pass);              //hash para encriptar contraseña con el tipo de SHA256
-        if (empty($usuario) || empty($nombre)|| empty($direccion) || empty($telefono) || 
+        if (empty($usuario) || empty($nombre)|| empty($paterno)|| empty($materno)|| empty($direccion)|| empty($num)|| empty($telefono) || 
             empty($email) || empty($caja)) {
             $msg = "Todos los campos son obligatorios";  
         }else{
@@ -92,7 +95,7 @@ class Usuarios extends Controller{                         #clase usuarios hered
                 if($pass != $confirmar){
                     $msg = "Las contraseña no coinciden";
                 }else{
-                    $data = $this->model->registrarUsuario($usuario, $nombre, $direccion,$telefono,$email,$hash,$caja);            //trae el metodo registrar usuario de Model
+                    $data = $this->model->registrarUsuario($usuario, $nombre, $paterno, $materno, $direccion, $num, $telefono, $email, $hash, $caja);            //trae el metodo registrar usuario de Model
                     if ($data == "ok") {
                         $msg = "si";
                     }else if($data == "existe"){
@@ -102,7 +105,7 @@ class Usuarios extends Controller{                         #clase usuarios hered
                     }
                 }    
             }else{
-                $data = $this->model->modificarUsuario($usuario, $nombre, $direccion, $telefono, $email, $caja, $id);            //trae el metodo editar usuario de Model
+                $data = $this->model->modificarUsuario($usuario,$nombre,$paterno, $materno, $direccion,$num,$telefono, $email, $caja, $id);            //trae el metodo editar usuario de Model
                 if ($data =="modificado") {
                     $msg = "modificado";
                 }else{
@@ -112,15 +115,6 @@ class Usuarios extends Controller{                         #clase usuarios hered
         }
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
-    //         }else{
-    //             $data = $this->model->modificarUsuario($usuario, $nombre, $caja, $id);
-    //             if ($data == "modificado") {
-    //                 $msg = array('msg' => 'Usuario modificado con éxito', 'icono' => 'success');
-    //             }else {
-    //                 $msg = array('msg' => 'Error al modificar el usuario', 'icono' => 'error');
-    //             }
-    //         }
-    //     }
         
     }
     public function editar(int $id_usuario)

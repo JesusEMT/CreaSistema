@@ -9,9 +9,12 @@
             <th>ID</th>
             <th>Telefono</th>
             <th>Nombre</th>
+            <th>A. Paterno</th>
+            <th>A. Materno</th>
             <th>Correo</th>
-            <th>Dirección</th>       
-            <th>Estado</th>
+            <th>Dirección</th>
+            <th>Núm</th>       
+            <th>Estado</th>            
             <th></th>
         </tr>
     </thead>
@@ -36,18 +39,37 @@
                     </div>                                                  
                     <div class="form-group">
                         <label for="nombre">Nombre *</label>
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre del Cliente">
-                    </div>                    
-                    <div class="form-group">
-                        <label for="email">Correo electronico *</label>
-                        <input id="email" class="form-control" type="text" name="email" placeholder="Correo electronico">
+                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre">
                     </div>  
+                    <div class="form-group ">
+                        <label for="paterno">Apellido paterno *</label>
+                        <input id="paterno" class="form-control" type="text" name="paterno" placeholder="Apellido paterno">
+                    </div>
+                    <div class="form-group ">
+                        <label for="materno">Apellido materno *</label>
+                        <input id="materno" class="form-control" type="text" name="materno" placeholder="Apellido materno">
+                    </div> 
+                                     
                     <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección" rows="3"></textarea>
-                    </div>         
-                    <button class="btn btn-primary" margin-top: 5px; type="button" onclick="registrarCli(event);" id="btnAccionModel">Registrar</button>
-                    <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 
+                        <label for="email">Correo electronico</label>
+                        <input id="email" class="form-control" type="text" name="email" placeholder="Correo electronico">
+                    </div>                     
+                    <div class="row" id="dirYnumCli">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="direccion">Dirección</label>
+                                <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección" rows="2"></textarea>
+                            </div>                           
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="num">Número</label>
+                                <input id="num" class="form-control" type="number" name="num" placeholder="Núm.">
+                            </div>
+                        </div>
+                    </div>        
+                    <button class="btn btn-primary mt-2" margin-top: 5px; type="button" onclick="registrarCli(event);" id="btnAccionModel">Registrar</button>
+                    <button class="btn btn-danger mt-2" type="button"data-bs-dismiss="modal">Cancelar</button> 
                 </form>
             </div>
         </div>

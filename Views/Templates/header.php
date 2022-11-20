@@ -13,6 +13,8 @@
         <!-- <link href="<?php echo base_url;?>Assets/css/jquery.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" /> -->
         <link href="<?php echo base_url;?>Assets/css/dataTables.bootstrap4.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="<?php echo base_url;?>Assets/js/all.js" crossorigin="anonymous"></script>
+        <!-- <script src="<?php echo base_url; ?>Assets/js/dataTables.select.min.js" crossorigin="anonymous"></script> -->
+
     </head>
     
     <body class="sb-nav-fixed">
@@ -66,9 +68,9 @@
                                 <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
                                 Productos                                
                             </a>
-                            <a class="nav-link" href="<?php echo base_url;?>Compras">
+                            <a class="nav-link" href="<?php echo base_url;?>IngresarProducto">
                                 <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
-                                Compras                                
+                                Producción                                
                             </a>
                             <a class="nav-link" href="<?php echo base_url;?>Ingredientes">
                                 <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
