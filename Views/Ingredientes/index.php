@@ -4,6 +4,7 @@
 </ol>
 <button class="btn btn-primary mb-2" type="button" onclick="frmIngrediente();"> <i class= "fas fa-plus">  </i></button>
 
+<div class="table-responsive">
 <table class="table table-light" id= "tblIngredientes">
     <thead class="thead-dark">
         <tr>
@@ -21,6 +22,8 @@
     <tbody>
     </tbody>
 </table>
+
+</div>
 <div id="nuevo_ingrediente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

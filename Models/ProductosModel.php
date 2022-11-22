@@ -99,6 +99,7 @@ class ProductosModel extends Query{                                  #heredados 
     {
         $this->id = $id;
         $this->estado = $estado;
+        // print_r($id);
         $sql = "UPDATE productos SET estado= ? WHERE ID = ?";
         $datos = array($this->estado, $this->id);
         $data = $this->save($sql,$datos);

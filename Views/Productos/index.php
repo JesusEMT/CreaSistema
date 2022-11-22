@@ -7,23 +7,26 @@
     </div>
 <button class="btn btn-primary mb-2 mt-3" type="button" onclick="frmProducto();"> <i class= "fas fa-plus">  </i></button>
 
-<table class="table table-light" id= "tblProductos">
-    <thead class="thead-dark">
-        <tr>
-            <th>No.</th>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Categoria</th>
-            <th>Precio</th>
-            <th>Almacén</th>
-            <th>Estado</th>
-            <th></th>
-            <!-- <th></th> -->
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-light" id= "tblProductos">
+        <thead class="thead-dark">
+            <tr>
+                <th>No.</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Precio</th>
+                <th>Almacén</th>
+                <th>Estado</th>
+                <th></th>
+                <!-- <th></th> -->
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
 <div id="nuevo_producto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

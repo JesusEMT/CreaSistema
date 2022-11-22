@@ -65,6 +65,7 @@
     <div class="card-body">
 </div>
 
+<div class="table-responsive">
 <table class="table table-light" id= "tblCompras">
     <thead class="thead-dark">
         <tr>
@@ -81,5 +82,7 @@
     <tbody>
     </tbody>
 </table>
+
+</div>
 
 <?php include "Views/Templates/footer.php"; ?>

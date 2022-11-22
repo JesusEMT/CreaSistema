@@ -23,6 +23,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'nombre_caja'},
            {'data': 'estado_usuario'},
            {'data': 'acciones'}     
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -45,6 +104,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'num_dir_cli'},
            {'data': 'estado'},
            {'data': 'acciones'}     
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -62,6 +180,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'nombre_corto'},
            {'data': 'estado'},
            {'data': 'acciones'}     
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -78,6 +255,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'nombre'},
            {'data': 'estado'},
            {'data': 'acciones'}     
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -98,6 +334,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'cantidad'},
            {'data': 'estado'},
            {'data': 'acciones'}     
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -117,6 +412,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'Abreviatura'},
            {'data': 'estado'},
            {'data': 'acciones'}     
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -134,7 +488,10 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'nombre'},
            {'data': 'cantidad'},
            {'data': 'estado'} 
-        ]
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        }
     } );
 })
 
@@ -154,6 +511,65 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'fecha'},
            {'data': 'estado'},            
            {'data': 'acciones'}  
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
         ]
     } );
 })
@@ -1391,7 +1807,7 @@ function AgregarPro(e, opc) {
     
 }
 
-function btnEliminarPro(e) {
+function btnEliminarProducccion(e) {
     e.preventDefault();    
     
     const cant = document.getElementById("cantidad_ingresar");

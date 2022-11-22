@@ -32,6 +32,7 @@
     </div>
 </div>
 
+<div class="table-responsive">
 <table class="table table-light" id= "tblProductos">
     <thead class="thead-dark">
         <tr>
@@ -49,5 +50,7 @@
     <tbody>
     </tbody>
 </table>
+
+</div>
 
 <?php include "Views/Templates/footer.php"; ?>

@@ -1,5 +1,6 @@
 <?php include "Views/Templates/header.php"; ?>
 
+<div class="table-responsive">
 <table class="table table-light" id="tbl_historial_compras">
     <thead class="thead-light">
         <tr>
@@ -15,6 +16,7 @@
     <tbody>
     </tbody>
 </table>
+</div>
 
 
 

@@ -11,7 +11,8 @@
         <link href="<?php echo base_url;?>Assets/css/styles.css" rel="stylesheet" />
         <!-- <link href="<?php echo base_url;?>Assets/css/dataTables.css" rel="stylesheet" crossorigin="anonymous" /> -->
         <!-- <link href="<?php echo base_url;?>Assets/css/jquery.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" /> -->
-        <link href="<?php echo base_url;?>Assets/css/dataTables.bootstrap4.css" rel="stylesheet" crossorigin="anonymous" />
+        <!-- <link href="<?php echo base_url;?>Assets/css/dataTables.bootstrap4.css" rel="stylesheet" crossorigin="anonymous" /> -->
+        <link href="<?php echo base_url;?>Assets/DataTables/datatables.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="<?php echo base_url;?>Assets/js/all.js" crossorigin="anonymous"></script>
         <!-- <script src="<?php echo base_url; ?>Assets/js/dataTables.select.min.js" crossorigin="anonymous"></script> -->
 
