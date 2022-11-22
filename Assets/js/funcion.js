@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'ID'},
            {'data': 'codigo'},
            {'data': 'nombre'},
-        //    {'data': 'descripcion'},
+           {'data': 'categoria'},
            {'data': 'precio_venta'},
            {'data': 'cantidad'},
            {'data': 'estado'},
@@ -133,10 +133,32 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'codigo'},
            {'data': 'nombre'},
            {'data': 'cantidad'},
-           {'data': 'estado'}  
+           {'data': 'estado'} 
         ]
     } );
 })
+
+//tabla Historial_compra
+document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    $('#tbl_historial_compras').DataTable( {
+        ajax: {
+            url: base_url + "IngresarProducto/listar_historial",
+            dataSrc: ''
+        },
+        columns: 
+        [
+           {'data': 'ID'},
+           {'data': 'codigo'},
+           {'data': 'Nom_pro'},
+           {'data': 'cantidad'},
+           {'data': 'fecha'},
+           {'data': 'estado'},            
+           {'data': 'acciones'}  
+        ]
+    } );
+})
+
+
 
 //----------------------------------------------------------------------------------------------------
 
@@ -1267,9 +1289,10 @@ function buscarCodigo(e) {
             }
 }
 
-function AgregarPro(e) {
-    e.preventDefault();    
+function AgregarPro(e, opc) {
+    e.preventDefault(); 
     
+    let url="";
     const cant = document.getElementById("cantidad_ingresar");
     const precio_creacion = document.getElementById("precio_creacion");    
     const codigo = document.getElementById("codigo").value;
@@ -1278,6 +1301,15 @@ function AgregarPro(e) {
     document.getElementById("costo_total").value = cant* precio_creacion;
 
     // console.log(codigo,cant, precio_creacion, descripcion);
+
+    if (opc == 1) {
+        mensaje= "agregar";
+        mensaje2= "agregados"
+    }
+    if (opc == -1) {
+        mensaje= "eliminar";
+        mensaje2= "eliminados";
+    }
 
 
     // if (e.which == 13 ) { 
@@ -1293,7 +1325,7 @@ function AgregarPro(e) {
         else{
             if (cant.value >0) {                   
                 Swal.fire({
-                    title: '¿Esta seguro de agregar productos al almacén?',
+                    title: '¿Esta seguro de ' + mensaje + ' productos al almacén?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -1302,7 +1334,15 @@ function AgregarPro(e) {
                     cancelButtonText: 'No'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        const url = base_url + "IngresarProducto/ingresar";                
+                        if (opc == 1) {
+                           url = base_url + "IngresarProducto/ingresar";              
+                            
+                        }
+                        if (opc == -1) {
+                            url = base_url + "IngresarProducto/eliminar";              
+                             
+                         }                      
+                        
                         const frm = document.getElementById("frmCompra");
                         const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
                         http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
@@ -1311,17 +1351,19 @@ function AgregarPro(e) {
                             if (this.readyState == 4 && this.status == 200) {
                                 // console.log(this.responseText);
                                 const res = JSON.parse(this.responseText);
-                                if (res=="ok") {
+                                if (res.msg =="ok") {
                                     Swal.fire({
                                         position: 'top-end',
                                         icon: 'success',
-                                        title: 'Productos agregados al almacén con éxito',
+                                        title: 'Productos ' + mensaje2 + ' con éxito',
                                         showConfirmButton: false,
                                         timer: 3000
                                     })
-                                    //   $("#nuevo_ingrediente").modal("hide"); 
                                     tblCompras.ajax.reload();
                                     document.getElementById("frmCompra").reset();       //limpia formulario de registros de la funcion editar
+                                    //   $("#nuevo_ingrediente").modal("hide"); 
+                                    const ruta = base_url + 'IngresarProducto/generarPdf/'+ res.id_compra;
+                                    window.open(ruta);
                                 }else{
                                     Swal.fire({
                                         position: 'top-end',
@@ -1345,7 +1387,8 @@ function AgregarPro(e) {
                   })
             }              
         }
-    // }    
+    // } 
+    
 }
 
 function btnEliminarPro(e) {
@@ -1427,5 +1470,7 @@ function btnEliminarPro(e) {
         }
     // }    
 }
+
+//FIN Agregar stock/compras----------------------------------------------------------------------------------------
 
 

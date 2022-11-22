@@ -7,9 +7,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <title>CREA SISTEMA</title>
 <link rel="shortcut icon" href="../creacosmetica.png">
+<!-- <center><img src="Assets/img/CreaLogo1.png" width="200"></center> -->
+
 <style>
 * {margin: 0;padding: 0;box-sizing: border-box;color: #ddd;font-family: "Helvetica";}
-body {min-height: 100vh;font-size: 16px;background: url(../public/img/fondo_web1.jpg) no-repeat center;background-size: cover;display: flex;justify-content: center;align-items: center;}
+body {min-height: 100vh;font-size: 16px;background: url(Assets/img/CreaCosmeticaFondo.png) no-repeat center;background-size: cover;display: flex;justify-content: center;align-items: center;}
 input, button {width: 100%;height: 52px;border: none;background-color: rgba(255, 255, 255, 0.15);outline: none;border-radius: 50px;}
 .container {position: relative;width: 400px;padding: 24px;display: flex;flex-direction: column;align-items: center;}
 .title {font-size: 1.8em;letter-spacing: 1px;margin-bottom: 30px;}
@@ -41,9 +43,10 @@ button[type="submit"]:hover {background-color:#f09f1f;}
 
     <div class="container">
 
-        <div class="loginBox">        
-            <center><img src="../public/img/logo_ac.png" width="320"></center>
-            <script src="<?php echo base_url; ?>logo crea.png"></script>
+        <div class="loginBox">   
+     
+            <!-- <center><img src="Assets/img/CreaLogo1.png" width="200"></center> -->
+
 
             <br>
             <form id="frmLogin">

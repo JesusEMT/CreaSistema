@@ -47,8 +47,8 @@
                 </div>
                 <div class="col-md-1 mt-4 ml-auto">
                     <div class="form-group">
-                        <button class="btn btn-primary" type="button" onclick="AgregarPro(event);"><i class= "fas fa-plus"></i></button>
-                        <button class="btn btn-danger" type="button" onclick="btnEliminarPro(event);"><i class= "fas fa-trash-alt"></i></button>
+                        <button class="btn btn-primary" type="button" onclick="AgregarPro(event,1);"><i class= "fas fa-plus"></i></button>
+                        <button class="btn btn-danger" type="button" onclick="AgregarPro(event,-1);"><i class= "fas fa-trash-alt"></i></button>
                     </div>
                 </div>
                 <!-- <div class="col-md-2">

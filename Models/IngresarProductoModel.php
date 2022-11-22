@@ -70,6 +70,37 @@ class IngresarProductoModel extends Query{                                  #her
         return $res;
     }
 
+    public function id_compra()
+    {
+        $sql = "SELECT MAX(ID) from compras";
+        $maxC = $this->select($sql);
+        return $maxC;
+    }
+
+
+    public function getEmpresa()
+    {
+        $sql = "SELECT * FROM empresa";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+    public function getCompra($id_compra)
+    {
+        $this->id_compra = $id_compra;
+        $sql = "SELECT c.*, u.ID_usuario AS ID_usu, u.nombre_usuario,u.paterno_usuario,u.materno_usuario,u.clave_usuario, p.ID AS ID_Pro, p.nombre AS Nom_pro, p.codigo FROM compras c INNER JOIN usuario u ON c.ID = $id_compra AND u.ID_usuario = c.id_usuario INNER JOIN productos p ON c.id_producto = p.ID";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+    public function getHistorialCompras()
+    {
+        $sql = "SELECT * FROM compras";
+        $sql = "SELECT c.*, u.ID_usuario AS ID_usu, u.nombre_usuario,u.paterno_usuario,u.materno_usuario,u.clave_usuario, p.ID AS ID_Pro, p.nombre AS Nom_pro, p.codigo FROM compras c INNER JOIN usuario u ON u.ID_usuario = c.id_usuario INNER JOIN productos p ON c.id_producto = p.ID";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
     
 }
 ?>

@@ -59,9 +59,6 @@ class IngresarProducto extends Controller{
         $codigo = $_POST['codigo'];
         $cantidad_nueva = $datos['cantidad'] +$cantidad_ingresar;                             //Desde consulta
         $estado = 1;
-        // print_r($_POST);
-        // print_r($datos);
-        // $descripcion = $_POST['descripcion'];
          
         if (empty($codigo) || empty($cantidad_ingresar) || empty($descripcion)) {
             $msg = "Todos los campos son obligatorios";  
@@ -73,8 +70,9 @@ class IngresarProducto extends Controller{
                 // $costo_total= intval($cantidad_ingresar) * intval($precio_creacion);
                 // $costo_total = strval($costo_total); 
                 $data = $this->model->actualizarProducto($cantidad_nueva,$id_producto);            //trae el metodo editar usuario de Model
-            }if ($data =="ok") {    
-                $msg = "ok";
+            }if ($data =="ok") {  
+                $id_compra= $this->model->id_compra();  
+                $msg = array('msg' => 'ok', 'id_compra'=> $id_compra['MAX(ID)']);
             }else{
                 $msg = "Error al ingresar producto";
             }
@@ -103,17 +101,9 @@ class IngresarProducto extends Controller{
         $codigo = $_POST['codigo'];
         $cantidad_nueva = $datos['cantidad'] - $cantidad_ingresar;                             //Desde consulta
         $estado = 0;
-        // print_r($_POST);
-        // print_r($datos);
-        // $descripcion = $_POST['descripcion'];
-        // print_r($cantidad_nueva);
-        // exit;
-        
 
         if (empty($codigo) || empty($cantidad_ingresar) || empty($descripcion)) {
-            $msg = "Todos los campos son obligatorios";
-        }if ($cantidad_nueva<0) {
-            $msg = "La cantidad de productos a eliminar supera al almacen";
+            $msg = "Todos los campos son obligatorios";  
         }else{    
             // $costo_total= intval($cantidad_ingresar) * intval($precio_creacion);
             // $costo_total = strval($costo_total);        
@@ -122,10 +112,11 @@ class IngresarProducto extends Controller{
                 // $costo_total= intval($cantidad_ingresar) * intval($precio_creacion);
                 // $costo_total = strval($costo_total); 
                 $data = $this->model->actualizarProducto($cantidad_nueva,$id_producto);            //trae el metodo editar usuario de Model
-            }if ($data =="ok") {    
-                $msg = "ok";
+            }if ($data =="ok") {  
+                $id_compra= $this->model->id_compra();  
+                $msg = array('msg' => 'ok', 'id_compra'=> $id_compra['MAX(ID)']);
             }else{
-                $msg = "Error al ingresar producto";
+                $msg = "Error al eliminar producto";
             }
                      
         }
@@ -133,4 +124,120 @@ class IngresarProducto extends Controller{
         die();
     
     }
+
+    public function generarPdf($id_compra)
+    {
+
+        $empresa= $this->model->getEmpresa();               //Traer los datos de la tabla empresa
+        $compra= $this->model->getCompra($id_compra);
+        $nombre_completo= ($compra["nombre_usuario"]." ".$compra['paterno_usuario']." ".$compra['materno_usuario']);
+        $direccion_completa= ($empresa["direccion"]."  #".$empresa['num_dir_empresa']);
+        $estado_compra = $compra['estado'];
+
+        if ( $estado_compra == 1 ) {
+            $estado_compra = 'Alta productos';
+        }
+        else if ($estado_compra == 0) {
+            $estado_compra = 'Baja productos';
+        }
+
+        require('Libraries/fpdf/fpdf.php');
+
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetTitle(utf8_decode('Reporte de producción'));
+        $pdf->image(base_url.'Assets/img/CreaLogo1.png',150,10,30);     //ruta de imagen, x, y, width,height
+        // $pdf->Ln(20);
+        $pdf->SetFont('Arial','B',18);
+        $pdf->Cell(180,10,utf8_decode($empresa['nombre']),0,1,'C');
+        $pdf->Ln(15);
+        $pdf->SetFont('Arial','B',14);
+        $pdf->Cell(80,10, utf8_decode('Reporte de Producción'),0,1,'L');
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(20,10,'Fecha :',0,0,'L');
+        $pdf->SetFont('Arial','',12);
+        $pdf->Cell(30,10, utf8_decode($compra['fecha']),0,1,'L');
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(30,10,'Folio reporte :',0,0,'L');
+        $pdf->SetFont('Arial','',12);
+        // $pdf->Cell(20,10, utf8_decode($compra['ID']),0,1,'L');
+        $pdf->Cell(20,10, $id_compra,0,1,'L');
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(30,10,'Tipo reporte :',0,0,'L');
+        $pdf->SetFont('Arial','',12);
+        $pdf->Cell(20,10, $estado_compra,0,1,'L');
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(30,10, utf8_decode('Clave usuario:'),0,0,'L');
+        $pdf->SetFont('Arial','',12);
+        $pdf->Cell(30,10, utf8_decode($compra['clave_usuario']),0,1,'L');
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(20,10, utf8_decode('Usuario:'),0,0,'L');
+        $pdf->SetFont('Arial','',12);
+        $pdf->Cell(30,10, $nombre_completo,0,1,'L');
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(30,10, utf8_decode('Descripción:'),0,0,'L');
+        $pdf->SetFont('Arial','',12);
+        $pdf->MultiCell(120,10, utf8_decode($compra['descripcion']),0,'L',0);
+        $pdf->Ln(10);
+
+        //Encabezado ingreso/compra producto
+        $pdf->SetFillColor(0,0,0);
+        $pdf->SetTextColor(255,255,255);    
+        
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(50,10, utf8_decode('Código'),0,0,'L',true);
+        $pdf->Cell(100,10, utf8_decode('Nombre producto'),0,0,'L',true);
+        $pdf->Cell(30,10, utf8_decode('Cantidad'),0,1,'L',true);
+
+        $pdf->SetFillColor(255,255,255);
+        $pdf->SetTextColor(0,0,0);
+
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(50,10, utf8_decode($compra['codigo']),0,0,'L',true);
+        $pdf->Cell(100,10, utf8_decode($compra['Nom_pro']),0,0,'L',true);
+        $pdf->Cell(30,10, utf8_decode($compra['cantidad']),0,0,'L',true);
+
+
+
+
+
+
+
+
+        $pdf->Output();
+
+    }
+
+    public function historial()
+    {
+        $this->views->getView($this, "historial");            //vista visible (controlador, archivo visible)
+
+    }
+
+    public function listar_historial()
+    {
+        $data= $this->model->getHistorialCompras();
+        for ($i=0; $i < count($data); $i++) { 
+            if ($data[$i]['estado'] == 1) {
+                $data[$i]['estado'] = '<span class="badge bg-success">Alta</span>';             
+            }else{
+                $data[$i]['estado'] = '<span class="badge bg-danger">Baja</span>';
+            }
+            $data[$i]['acciones'] = '<div>
+            <a class="btn btn-primary "  href="'.base_url. "IngresarProducto/generarPdf/".$data[$i]['ID'].'" target="_blank"  >    <i class= "fas fa-file-pdf"> </i> </a>
+            <div/>';
+          
+        }
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+
+
 }

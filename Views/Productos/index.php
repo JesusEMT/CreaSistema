@@ -13,9 +13,9 @@
             <th>No.</th>
             <th>Código</th>
             <th>Nombre</th>
-            <!-- <th>Descripción</th> -->
+            <th>Categoria</th>
             <th>Precio</th>
-            <th>Stock</th>
+            <th>Almacén</th>
             <th>Estado</th>
             <th></th>
             <!-- <th></th> -->
