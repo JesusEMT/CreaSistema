@@ -49,7 +49,7 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?php echo base_url;?>Usuarios"><i class="fas fa-user text-primary me-2"></i>Usuarios</a>
-                                    <a class="nav-link" href="<?php echo base_url;?>Configura"><i class="fas fa-tools text-primary me-2"></i>Configuración</a>
+                                    <a class="nav-link" href="<?php echo base_url;?>Configurar"><i class="fas fa-tools text-primary me-2"></i>Configuración</a>
                                     <a class="nav-link" href="<?php echo base_url;?>Cajas"><i class="fas fa-box text-primary me-2"></i>Cajas</a>
                                 </nav>
                             </div>

@@ -1242,7 +1242,7 @@ function btnReingresarIngre(ID){
 //Fin Ingredientes -------------------------------------------------------------
 
 
-//Agregar prodcto a stock /compras
+//****************  Agregar prodcto a stock /compras ************************************
 
 function frmCompra() {
     document.getElementById("title_modal").innerHTML = "Nueva";
@@ -1474,3 +1474,40 @@ function btnEliminarPro(e) {
 //FIN Agregar stock/compras----------------------------------------------------------------------------------------
 
 
+//*********************  Empresa *******************************
+
+function modificarEmpresa() {
+    const frm = document.getElementById("frmEmpresa");  
+    const url = base_url + "Configurar/modificar";                
+        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+        http.send(new FormData(frm));                                 //se envia al formulario
+
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                const res = JSON.parse(this.responseText);             //parseamos
+                if (res=="modificado") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Datos modificados con exito',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                }else{
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: res,
+                        showConfirmButton: false,
+                        timer: 3000
+                      }) 
+                }
+                
+                
+            }
+        } 
+              
+    
+}
