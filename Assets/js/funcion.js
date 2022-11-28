@@ -1,9 +1,18 @@
 
 // tablas para listar datos
-let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes,tblCompras;
+let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes, tblCompras;
 
-//tabla usuarios
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    
+    $('#SelectCliente').select2();  
+    // $("#SelectCliente").select2({
+    // //     tags: true
+    // // theme: 'bootstrap',
+    // // placeholder: "Buscar proveedor",
+    // // minimumInputLength: 1
+    //   }) 
+  
+   //tabla usuarios
     tblUsuarios = $('#tblUsuarios').DataTable( {
         ajax: {
             url: base_url + "Usuarios/listar",
@@ -84,9 +93,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
-//tabla clientes
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+
+    //tabla clientes   
     tblClientes = $('#tblClientes').DataTable( {
         ajax: {
             url: base_url + "Clientes/listar",
@@ -165,9 +173,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
-//tabla Medidas
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+
+    //tabla Medidas
     tblMedidas = $('#tblMedidas').DataTable( {
         ajax: {
             url: base_url + "Medidas/listar",
@@ -241,9 +248,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
-//tabla Categorias
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+
+    //tabla Categorias
     tblCategorias = $('#tblCategorias').DataTable( {
         ajax: {
             url: base_url + "Categorias/listar",
@@ -316,9 +322,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
-//tabla Productos
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+
+    //tabla Productos
     tblProductos = $('#tblProductos').DataTable( {
         ajax: {
             url: base_url + "Productos/listar",
@@ -395,9 +400,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
-//tabla Ingredientes
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+
+    //tabla Ingredientes
     tblIngredientes = $('#tblIngredientes').DataTable( {
         ajax: {
             url: base_url + "Ingredientes/listar",
@@ -473,9 +477,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
-//tabla Compras/añadir producto a stock
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+
+    //tabla Compras/añadir producto a stock
     tblCompras = $('#tblCompras').DataTable( {
         ajax: {
             url: base_url + "IngresarProducto/listar",
@@ -493,10 +496,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
         }
     } );
-})
 
-//tabla Historial_compra
-document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
+    //tabla Historial_compras
     $('#tbl_historial_compras').DataTable( {
         ajax: {
             url: base_url + "IngresarProducto/listar_historial",
@@ -572,8 +573,83 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         }
         ]
     } );
-})
 
+    //tabla Historial Ventas
+    $('#tbl_historial_ventas').DataTable( {
+        ajax: {
+            url: base_url + "ventas/listar_historial",
+            dataSrc: ''
+        },
+        columns: 
+        [
+           {'data': 'ID'},
+           {'data': 'nombre_cli'},
+           {'data': 'total'},
+           {'data': 'fecha'},           
+           {'data': 'acciones'}  
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [{
+            //Botón para Excel
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Aquí es donde generas el botón personalizado
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //Botón para PDF
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para copiar
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Botón para print
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //Botón para cvs
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
+        ]
+    } );
+
+})
 
 
 //----------------------------------------------------------------------------------------------------
@@ -605,66 +681,66 @@ function registrarUser(e){
 
     if ( usuario.value == "" || nombre.value == "" || paterno.value == "" || materno.value == "" || direccion.value == "" || num.value == ""|| telefono.value == "" || email.value == "" ||
         caja.value == "") {        
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Llena todos los campos obligatorios',
-            showConfirmButton: false,
-            timer: 3000
-          })
-    }else if (pass.value != confirmar.value) {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Las contraseñas no coinciden',
-            showConfirmButton: false,
-            timer: 3000
-          })
-    }else{
-        const url = base_url + "Usuarios/registrar";                
-        const frm = document.getElementById("frmUsuario");
-        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
-        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
-        http.send(new FormData(frm));                                 //se envia al formulario
-
-        http.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                //console.log(this.responseText);
-                const res = JSON.parse(this.responseText);             //parseamos 
-                if (res =="si") {                                     //Si la respuesta es si 
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuario registrado con exito',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      frm.reset();                                      //borramos formualrio
-                      $("#nuevo_usuario").modal("hide");                //oculatmos el modal(nuevo_usuario) esta en view/index
-                      tblUsuarios.ajax.reload();                        //actuliza automaticamente la vista
-                }else if (res=="modificado") {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Usuario modificado con exito',
-                        showConfirmButton: false,
-                        timer: 3000
-                      })
-                      $("#nuevo_usuario").modal("hide"); 
-                      tblUsuarios.ajax.reload();
-                }else{
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: res,
-                        showConfirmButton: false,
-                        timer: 3000
-                      }) 
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Llena todos los campos obligatorios',
+                showConfirmButton: false,
+                timer: 3000
+              })
+        }else if (pass.value != confirmar.value) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Las contraseñas no coinciden',
+                showConfirmButton: false,
+                timer: 3000
+              })
+        }else{
+            const url = base_url + "Usuarios/registrar";                
+            const frm = document.getElementById("frmUsuario");
+            const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+            http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+            http.send(new FormData(frm));                                 //se envia al formulario
+    
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    //console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);             //parseamos 
+                    if (res =="si") {                                     //Si la respuesta es si 
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Usuario registrado con exito',
+                            showConfirmButton: false,
+                            timer: 3000
+                          })
+                          frm.reset();                                      //borramos formualrio
+                          $("#nuevo_usuario").modal("hide");                //oculatmos el modal(nuevo_usuario) esta en view/index
+                          tblUsuarios.ajax.reload();                        //actuliza automaticamente la vista
+                    }else if (res=="modificado") {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Usuario modificado con exito',
+                            showConfirmButton: false,
+                            timer: 3000
+                          })
+                          $("#nuevo_usuario").modal("hide"); 
+                          tblUsuarios.ajax.reload();
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res,
+                            showConfirmButton: false,
+                            timer: 3000
+                        }) 
+                    }
+                
                 }
-            
             }
         }
-    }
 }
 
 function editarUser(ID_usuario) {
@@ -697,7 +773,7 @@ function editarUser(ID_usuario) {
 
 function btnEliminarUser(ID_usuario){
     Swal.fire({
-        title: '¿Esta seguro de eliminar?',
+        title: '¿Esta seguro de dar de baja a usuario?',
         text: "El usuario no se eliminara de forma permanente, solo cambiará a Inactivo",
         icon: 'warning',
         showCancelButton: true,
@@ -718,7 +794,7 @@ function btnEliminarUser(ID_usuario){
                     if (res=="ok") {
                         Swal.fire(            
                             'Mensaje',
-                            'Usuario eliminado con éxito',
+                            'Usuario dado de baja con éxito',
                             'success'
                         )
                         tblUsuarios.ajax.reload();                                          //recarga la tabla para ver cambios
@@ -1732,7 +1808,7 @@ function AgregarPro(e, opc) {
         if ( codigo.value == "" || cant.value == "" || descripcion.value == "" ) {        
             Swal.fire({
                 position: 'top-end',
-                icon: 'error',
+                icon: 'warning',
                 title: 'Llena todos los campos',
                 showConfirmButton: false,
                 timer: 3000
@@ -1796,7 +1872,7 @@ function AgregarPro(e, opc) {
             }else{
                 Swal.fire({
                     position: 'top-end',
-                    icon: 'error',
+                    icon: 'warning',
                     title: 'Cantidad debe ser mayor a cero',
                     showConfirmButton: false,
                     timer: 3000
@@ -1890,6 +1966,222 @@ function btnEliminarProducccion(e) {
 //FIN Agregar stock/compras----------------------------------------------------------------------------------------
 
 
+//****************  VENTAS ************************************
+
+function frmVenta() {
+    document.getElementById("title_modal").innerHTML = "Nueva";
+    document.getElementById("btnAgregar").innerHTML = "Agregar";
+    document.getElementById("frmVenta").reset();                              //limpia formulario de registros de la funcion editar
+    document.getElementById("id").value=""; 
+    // $("#nuevo_producto").modal("show");    
+}
+
+function buscarCodigoVenta(e) {
+    e.preventDefault();
+
+    // if (e.which == 13 ) {                                                //al presionar tecla enter
+        const cod = document.getElementById("codigo").value;
+        const url = base_url + "Ventas/buscar/"+ cod;                  // controlador/metodo/argumentos
+
+        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+        http.open("GET", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+        http.send();                                                 //se envia al formulario
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res) {                                                        //Si existe res carga los valores en el documento
+                        document.getElementById("id").value = res.ID;   
+                        document.getElementById("nombre").value = res.nombre;         
+                        document.getElementById("precio_venta").value = res.precio_venta;      
+                        document.getElementById("cantidad_ingresar").focus();
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: "Producto no existe",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        document.getElementById("codigo").value='';
+                        document.getElementById("nombre").value='';
+                        document.getElementById("sub_total").value='';
+                        document.getElementById("precio_venta").value='';
+                        document.getElementById("cantidad_ingresar").value= null;
+                        document.getElementById("codigo").focus();    
+
+                    }            
+                }
+            }
+}
+
+function calcularPrecioVenta(e) 
+{
+    e.preventDefault(); 
+    
+
+    const codigo = document.getElementById("codigo").value;
+    const cantidad_ingresar = document.getElementById("cantidad_ingresar").value;
+    const precio_venta = document.getElementById("precio_venta").value;    
+    // const sub_total = document.getElementById("sub_total");
+
+    document.getElementById("sub_total").value = cantidad_ingresar * precio_venta;
+  
+    if (cantidad_ingresar >0) 
+    { 
+        const url = base_url + "Ventas/ingresar";              
+        const frm = document.getElementById("frmVenta");
+        const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+        http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+        http.send(new FormData(frm));                                 //se envia al formulario
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                const res = JSON.parse(this.responseText);
+                if (res == "ok") {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Producto ingresado',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                    frm.reset();
+                    cargarDetalleTV();
+                    
+                }else if (res == 'modificado') {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Producto actulizado',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                    frm.reset();
+                    cargarDetalleTV();                    
+                }
+            }
+        }
+    }
+    
+}
+
+if (document.getElementById('tblDetalleVenta')) {
+    cargarDetalleTV();                                  //En la f cargarDetalleTV intentaba cargar tabla
+}
+
+function cargarDetalleTV(){
+    const url = base_url + "Ventas/listar";              
+    const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+    http.open("GET", url, true);  
+    http.send();                               //Por metodo post enviamos url con true indicamos que de manera asincrona
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // console.log(this.responseText);
+            const res = JSON.parse(this.responseText);
+            let html = '';
+            res['detalle_tabla'].forEach(row => {                   //nombre parametrodel data nombra en el controlador
+                html += `<tr>
+                    <td>${row['ID_DTV']}</td>
+                    <td>${row['nombre']}</td>
+                    <td>${row['cantidad_dtv']}</td>
+                    <td>${row['precio_dtv']}</td>
+                    <td>${row['sub_total_dtv']}</td>
+                    <td> <button class= "btn btn-danger" type="button" onclick="btnEliminarDTV(${row['ID_DTV']})"> 
+                    <i class= "fas fa-trash-alt"> </i></button> </td>
+                </tr>`;
+                    
+                
+            });
+            document.getElementById("tblDetalleVenta").innerHTML = html;
+            document.getElementById("total_venta").value =res['total_pagar'].total;
+
+            
+        }
+    }
+}
+
+function btnEliminarDTV(ID_DTV) {
+    const url = base_url +"Ventas/eliminar/"+ID_DTV;              
+    const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+    http.open("GET", url, true);  
+    http.send();                                                   //Por metodo post enviamos url con true indicamos que de manera asincrona
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // console.log(this.responseText);
+            const res = JSON.parse(this.responseText);
+            if (res== 'ok') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Producto eliminado',
+                    showConfirmButton: false,
+                    timer: 3000
+                })  
+                cargarDetalleTV();              
+            }else
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error al eliminar el producto',
+                    showConfirmButton: false,
+                    timer: 3000
+                })    
+        }
+    }
+}
+
+function btnGenerarVenta() {
+    Swal.fire({
+        title: '¿Esta seguro realizar la venta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            const id_cliente = document.getElementById('SelectCliente').value;
+            const url = base_url + "ventas/registrarVenta/" + id_cliente;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res.msg=="ok") {
+                        Swal.fire(            
+                            'Mensaje',
+                            'Compra generada',
+                            'success'
+                        )
+                        const ruta = base_url + 'Ventas/generarPdf/' + res.id_ventaMax;
+                        window.open(ruta);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+                    }else{
+                        Swal.fire(            
+                            'Mensaje',
+                            res,
+                            'error'
+                        )
+                    }                  
+                }
+            }
+          
+        }
+      })
+}
+
+//----------- FIN VENTAS ----------------------------------------------------------------------------------------
+
+
+
+
+
 //*********************  Empresa *******************************
 
 function modificarEmpresa() {
@@ -1925,5 +2217,19 @@ function modificarEmpresa() {
             }
         } 
               
+    
+}
+
+
+// ****** funciones generales para optimizar código
+
+function alertas(mensaje,icono) {
+    Swal.fire({
+        position: 'top-end',
+        icon: icono,
+        title: mensaje,
+        showConfirmButton: false,
+        timer: 3000
+    })
     
 }

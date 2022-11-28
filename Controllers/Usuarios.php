@@ -67,8 +67,8 @@ class Usuarios extends Controller{                         #clase usuarios hered
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         //print_r($data);
         die();
-    }
-    
+    }  
+      
     public function registrar()
     {
         //print_r($_POST);

@@ -42,7 +42,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="descripcion">Descripcion *</label>
-                        <textarea id="descripcion" class="form-control" name="descripcion" placeholder="descripcion" rows="2"></textarea>
+                        <textarea id="descripcion" class="form-control" name="descripcion" placeholder="Ingresa motivo" rows="2"></textarea>
                     </div> 
                 </div>
                 <div class="col-md-1 mt-4 ml-auto">

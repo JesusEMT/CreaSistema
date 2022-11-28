@@ -7,15 +7,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Panel de Adminitración</title>
-        <link href="<?php echo base_url;?>Assets/css/styles.css" rel="stylesheet" />
-        <!-- <link href="<?php echo base_url;?>Assets/css/dataTables.css" rel="stylesheet" crossorigin="anonymous" /> -->
-        <!-- <link href="<?php echo base_url;?>Assets/css/jquery.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" /> -->
-        <!-- <link href="<?php echo base_url;?>Assets/css/dataTables.bootstrap4.css" rel="stylesheet" crossorigin="anonymous" /> -->
-        <link href="<?php echo base_url;?>Assets/DataTables/datatables.min.css" rel="stylesheet" crossorigin="anonymous" />
-        <script src="<?php echo base_url;?>Assets/js/all.js" crossorigin="anonymous"></script>
-        <!-- <script src="<?php echo base_url; ?>Assets/js/dataTables.select.min.js" crossorigin="anonymous"></script> -->
+        <title>Crea Cosmética</title>
+        <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
+        <link href="<?php echo base_url; ?>Assets/DataTables/datatables.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <!-- <link href="<?php echo base_url; ?>Assets/ccs/select2.min.ccs" rel="stylesheet"/> -->
 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        
+        <script src="<?php echo base_url; ?>Assets/js/all.js" crossorigin="anonymous"></script>
     </head>
     
     <body class="sb-nav-fixed">
@@ -80,9 +79,18 @@
                                     <a class="nav-link" href="<?php echo base_url;?>IngresarProducto"><i class="fas fa-shopping-cart text-primary me-2"></i>Almacen</a>
                                     <a class="nav-link" href="<?php echo base_url;?>IngresarProducto/historial"><i class="fas fa-list text-primary me-2"></i>Historial</a>
                                 </nav>
-                            </div>
-
-                            
+                            </div>                   
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseVentas" aria-expanded="false" aria-controls="collapseVentas">
+                                <div class="sb-nav-link-icon"><i class="fa-sharp fa-solid fa-inbox text-primary"></i></div>
+                                Salidas
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseVentas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="<?php echo base_url;?>Ventas"><i class="fas fa-shopping-cart text-primary me-2"></i>Ventas</a>
+                                    <a class="nav-link" href="<?php echo base_url;?>Ventas/historial"><i class="fas fa-list text-primary me-2"></i>Historial ventas</a>
+                                </nav>
+                            </div>                       
                             <a class="nav-link" href="<?php echo base_url;?>Ingredientes">
                                 <div class="sb-nav-link-icon"><i class="fab fa-product-hunt text-primary"></i></div>
                                 Ingredientes                                
