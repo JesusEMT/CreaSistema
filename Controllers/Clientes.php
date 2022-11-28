@@ -126,9 +126,9 @@ class Clientes extends Controller{                         #clase usuarios hered
         die();
     }
 
-    public function salir()
-    {
-        session_destroy();
-        header("location: ".base_url);
-    }
+    // public function salir()
+    // {
+    //     session_destroy();
+    //     header("location: ".base_url);
+    // }
 }

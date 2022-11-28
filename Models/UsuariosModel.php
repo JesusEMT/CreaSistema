@@ -1,7 +1,7 @@
 <?php
 class UsuariosModel extends Query{                                  #heredados de clase Query
    
-    private $usuario, $nombre,$paterno,$materno, $direccion, $num, $telefono, $email, $pass, $id_caja, $id, $estado;
+    private $usuario, $nombre,$paterno,$materno, $direccion, $num, $telefono, $email, $pass, $id_caja, $id, $estado, $pass_hash;
     
     //funcion constructor
     public function __construct()
@@ -109,6 +109,24 @@ class UsuariosModel extends Query{                                  #heredados d
         $this->estado = $estado_usuario;
         $sql = "UPDATE usuario SET estado_usuario= ? WHERE ID_usuario = ?";
         $datos = array($this->estado, $this->id);
+        $data = $this->save($sql,$datos);
+        return $data;
+    }
+
+    public function getPass(string $pass_hash, int $id_usuario)
+    {
+        $sql = "SELECT * FROM usuario WHERE password_usuario ='$pass_hash' AND ID_usuario= $id_usuario ";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+
+    public function modificarPass(string $pass, int $id_usuario )
+    {
+
+        // print_r($pass);
+        $sql = "UPDATE usuario SET password_usuario= ? WHERE ID_usuario = ?";
+        $datos = array($pass, $id_usuario);
         $data = $this->save($sql,$datos);
         return $data;
     }

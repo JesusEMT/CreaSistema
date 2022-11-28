@@ -651,6 +651,73 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
 
 })
 
+//+++++cambiar password++++
+
+function frmCambiarPass(e) {
+
+    e.preventDefault();
+
+    const pass_actual = document.getElementById('actual_pass').value;
+    const nueva_pass = document.getElementById('nueva_pass').value;
+    const confirmar_pass = document.getElementById('confirmar_pass').value;
+
+    if (pass_actual == '' || nueva_pass == '' || confirmar_pass == '') {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Llena todos los campos obligatorios',
+            showConfirmButton: false,
+            timer: 3000
+          })        
+    }else{
+        if (nueva_pass != confirmar_pass) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Contraseñas no coinciden',
+                showConfirmButton: false,
+                timer: 3000
+              })  
+        }else{
+            const url = base_url + "Usuarios/cambiarPass";                
+            const frm = document.getElementById("frmCambiarPass");
+            const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+            http.open("POST", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+            http.send(new FormData(frm));                                 //se envia al formulario
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);             //parseamos 
+                    if (res=="modificado") {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Usuario modificado con éxito',
+                            showConfirmButton: false,
+                            timer: 3000
+                          })
+                          $("#cambiarPass").modal("hide"); 
+                          frm.reset();
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'warning',
+                            title: res,
+                            showConfirmButton: false,
+                            timer: 3000
+                        }) 
+                    }
+                
+                }
+            }
+
+        }
+         
+
+    }
+    
+}
+
 
 //----------------------------------------------------------------------------------------------------
 

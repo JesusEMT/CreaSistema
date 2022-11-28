@@ -106,9 +106,9 @@ class Categorias extends Controller{                         #clase usuarios her
         die();
     }
 
-    public function salir()
-    {
-        session_destroy();
-        header("location: ".base_url);
-    }
+    // public function salir()
+    // {
+    //     session_destroy();
+    //     header("location: ".base_url);
+    // }
 }

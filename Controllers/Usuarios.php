@@ -71,7 +71,7 @@ class Usuarios extends Controller{                         #clase usuarios hered
       
     public function registrar()
     {
-        //print_r($_POST);
+        
         $usuario = $_POST['usuario'];
         $nombre = $_POST['nombre'];
         $paterno = $_POST['paterno'];
@@ -152,6 +152,41 @@ class Usuarios extends Controller{                         #clase usuarios hered
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die();
     }
+
+    public function cambiarPass()
+    {
+        $actual_pass = $_POST['actual_pass'];                            
+        $nueva_pass = $_POST['nueva_pass'];
+        $confirmar_pass = $_POST['confirmar_pass'];   
+        
+        if (empty($actual_pass)|| empty($nueva_pass)|| empty($confirmar_pass)) {
+            // print_r("Todos los campos son obligatorios");
+            $msg = "Todos los campos son obligatorios";
+        }else {
+            if ($nueva_pass != $confirmar_pass) {
+                $msg = "Las contraseñas no coinciden";                
+            }else {
+                $id_usuario= $_SESSION['id_usuario'];
+                $hash = hash("SHA256", $actual_pass);  
+                $data = $this->model->getPass($hash, $id_usuario);
+                if (!empty($data)) {
+                    $verificar = $this->model->modificarPass(hash("SHA256",$nueva_pass), $id_usuario );
+                    if ($verificar == 1) {
+                        $msg = "modificado";
+                    }else{
+                        $msg = "Error al modificar contraseña";
+                    }                    
+                }else {
+                    $msg = "La contraseña actual incorrecta";
+                }
+            }
+            
+        }
+        echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+
 
     public function salir()
     {
