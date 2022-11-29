@@ -189,13 +189,34 @@ class VentasModel extends Query{                                  #heredados de 
     }
 
 
-    public function actualizarProductosVenta(int $cantidad_nueva, int $id_producto,  )
+    public function actualizarProductosVenta(int $cantidad_nueva, int $id_producto, )
     {
         $this->cantidad_nueva = $cantidad_nueva;
         $this->id_producto = $id_producto;
 
         $sql = "UPDATE productos SET cantidad = ? WHERE ID = ?";
         $datos = array($this->cantidad_nueva,$this->id_producto);
+        $data = $this->save($sql, $datos);
+        if ($data == 1) {
+            $res = "ok";
+        } else {
+            $res = "error";
+        }
+        return $res;
+    }
+
+    public function getAnularVenta(int $id_venta)
+    {
+        $sql = "SELECT v.*, dv.* FROM ventas v INNER JOIN detalle_ventas dv ON v.ID = dv.id_venta WHERE  v.ID = $id_venta ";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
+
+    public function getAnular(int $id_venta )
+    {
+        $sql = "UPDATE ventas SET estado = ? WHERE ID = ?";
+        $datos = array(0, $id_venta);
         $data = $this->save($sql, $datos);
         if ($data == 1) {
             $res = "ok";

@@ -1,6 +1,6 @@
 
 // tablas para listar datos
-let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes, tblCompras;
+let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos, tblIngredientes, tblCompras, tbl_historial_ventas;
 
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
     
@@ -575,7 +575,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
     } );
 
     //tabla Historial Ventas
-    $('#tbl_historial_ventas').DataTable( {
+    tbl_historial_ventas= $('#tbl_historial_ventas').DataTable( {
         ajax: {
             url: base_url + "ventas/listar_historial",
             dataSrc: ''
@@ -585,7 +585,8 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'ID'},
            {'data': 'nombre_cli'},
            {'data': 'total'},
-           {'data': 'fecha'},           
+           {'data': 'fecha'}, 
+           {'data': 'estado'},          
            {'data': 'acciones'}  
         ],
         language: {
@@ -2243,6 +2244,53 @@ function btnGenerarVenta() {
       })
 }
 
+function btnAnularVenta($id_venta) {
+    
+    Swal.fire({
+        title: '¿Esta seguro de anular la venta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const url = base_url +"Ventas/anularVenta/" + $id_venta;
+            
+            // console.log(url);
+
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log(this.responseText);
+                    const res = JSON.parse(this.responseText);
+                    if (res == "ok") {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Venta anulada',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        tbl_historial_ventas.ajax.reload();
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res,
+                            showConfirmButton: false,
+                            timer: 3000
+                        }) 
+                    }                                     
+                }
+            }          
+        }
+    })
+}
+
 //----------- FIN VENTAS ----------------------------------------------------------------------------------------
 
 
@@ -2287,26 +2335,6 @@ function modificarEmpresa() {
     
 }
 
-
-// ****** funciones generales para optimizar código
-
-function alertas(mensaje,icono) {
-    Swal.fire({
-        position: 'top-end',
-        icon: icono,
-        title: mensaje,
-        showConfirmButton: false,
-        timer: 3000
-    })
-    
-}
-
-if (document.getElementById('productosMinimos')) {
-    reporteStock();
-    productosVendidos();
-}
-
-
 function reporteStock(){
     const url = base_url + "Configurar/reporteStock";                
     const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
@@ -2343,7 +2371,6 @@ function reporteStock(){
 
 }
 
-
 function productosVendidos(){
     const url = base_url + "Configurar/productosVendidos";                
     const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
@@ -2379,6 +2406,26 @@ function productosVendidos(){
 
 
 }
+
+// ****** funciones generales para optimizar código
+
+function alertas(mensaje,icono) {
+    Swal.fire({
+        position: 'top-end',
+        icon: icono,
+        title: mensaje,
+        showConfirmButton: false,
+        timer: 3000
+    })
+    
+}
+
+if (document.getElementById('productosMinimos')) {
+    reporteStock();
+    productosVendidos();
+}
+
+
 
 
 

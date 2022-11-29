@@ -8,7 +8,7 @@
         <th>Cliente</th>
         <th>Total</th>
         <th>Fecha</th>
-        <!-- <th>Estado</th> -->
+        <th>Estado</th>
         <th></th>
         </tr>
     </thead>

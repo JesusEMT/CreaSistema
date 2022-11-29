@@ -137,10 +137,21 @@ class Ventas extends Controller{
     {
         $data= $this->model->getHistorialVentas();
         for ($i=0; $i < count($data); $i++) { 
+
+            if ($data[$i]['estado'] == 1) {
+                $data[$i]['estado'] = '<span class="badge bg-success">Completado</span>';
+                $data[$i]['acciones'] = '<div>
+                <a class="btn btn-danger "  href="'.base_url. "Ventas/generarPdf/".$data[$i]['ID'].'" target="_blank"  >    <i class= "fas fa-file-pdf"> </i> </a>
+                <button class="btn btn-warning" onclick="btnAnularVenta('.$data[$i]['ID'].' )"> <i class="fas fa-ban"> </i></button>
+                <div/>';
+            }else{
+                $data[$i]['estado'] = '<span class="badge bg-danger">Anulado</span>';
+                $data[$i]['acciones'] = '<div>
+                <a class="btn btn-danger "  href="'.base_url. "Ventas/generarPdf/".$data[$i]['ID'].'" target="_blank"  >    <i class= "fas fa-file-pdf"> </i> </a>
+                <div/>';
+            }
             
-            $data[$i]['acciones'] = '<div>
-            <a class="btn btn-danger "  href="'.base_url. "Ventas/generarPdf/".$data[$i]['ID'].'" target="_blank"  >    <i class= "fas fa-file-pdf"> </i> </a>
-            <div/>';
+            
           
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -245,6 +256,24 @@ class Ventas extends Controller{
 
     }
 
+    public function anularVenta($id_venta)
+    {
+        $data= $this->model->getAnularVenta($id_venta); 
+        $anular= $this->model->getAnular($id_venta); 
 
+        foreach ($data as $row){
+        $stock_actual= $this->model->getProductos($row['id_producto']);
+        $cantidad_nueva = $stock_actual['cantidad'] + $row['cantidad'];
+        $this->model->actualizarProductosVenta($cantidad_nueva, $row['id_producto']);
+        }
+        if ($anular == "ok") {
+            $msg = 'ok';
+        }else{
+            $msg = 'error';
+        }
 
+        echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+        die();
+        
+    }
 }
