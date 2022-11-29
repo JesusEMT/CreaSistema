@@ -36,7 +36,7 @@
                 <div class="col-md-2 mt-3">
                     <div class="form-group">
                         <label for="cantidad_ingresar">Cant *</label>
-                        <input id="cantidad_ingresar" class="form-control" type="number" name="cantidad_ingresar" placeholder="Cantidad" >
+                        <input id="cantidad_ingresar" class="form-control" type="number" min="0" name="cantidad_ingresar" placeholder="Cantidad" >
                     </div>
                 </div>                
                 <div class="col-md-2 mt-3">

@@ -2112,7 +2112,7 @@ function calcularPrecioVenta(e)
                         icon: 'success',
                         title: 'Producto ingresado',
                         showConfirmButton: false,
-                        timer: 3000
+                        timer: 2000
                       })
                     frm.reset();
                     cargarDetalleTV();
@@ -2121,13 +2121,21 @@ function calcularPrecioVenta(e)
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Producto actulizado',
+                        title: 'Producto actualizado',
                         showConfirmButton: false,
-                        timer: 3000
+                        timer: 2000
                       })
                     frm.reset();
                     cargarDetalleTV();                    
-                }
+                }else{
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: res,
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                }      
             }
         }
     }

@@ -39,26 +39,35 @@ class Ventas extends Controller{
         $precio_venta = $datos['precio_venta'];                                     //Desde consulta BD
         $cantidad_ingresar = $_POST['cantidad_ingresar'];                           //desde formulario con metodo POST
         $comprobar =  $this->model->consultarRepetidos($id_producto,$id_usuario);    //variable para consultar si se añadio algun producto
+        $id_ventaMax = $this->model->id_ventaMax();
         
         if (empty($comprobar)) {                                //Si no hay proucto añadido se añade a la tabla como nuevo 
-            $sub_total =  $precio_venta * $cantidad_ingresar;
-            $data = $this->model->registrarDetalle($id_producto, $id_usuario,$precio_venta, $cantidad_ingresar,$sub_total);
-            if ($data =="ok") {  
-                $id_ventaMax = $this->model->id_ventaMax();
-                $msg = "ok";
-            }else{
-                $msg = "Error al ingresar producto";
+            if ($datos['cantidad']>= $cantidad_ingresar) {
+                $sub_total =  $precio_venta * $cantidad_ingresar;
+                $data = $this->model->registrarDetalle($id_producto, $id_usuario,$precio_venta, $cantidad_ingresar,$sub_total);
+                if ($data =="ok") {  
+                    $msg = "ok";
+                }else{
+                    $msg = "Error al ingresar producto";
+                }
+            }else {
+                $msg = "Cantidad en almacen no diponibles. ".$datos['cantidad']. " productos en existencia";
             }
+            
         }else{
             $total_cantidad =  $comprobar['cantidad_dtv'] + $cantidad_ingresar;
             $sub_total =  $precio_venta * $total_cantidad;
-            $data = $this->model->actualizarDetalle($precio_venta, $total_cantidad,$sub_total, $id_producto, $id_usuario);
-            if ($data =="modificado") {  
-                $id_ventaMax = $this->model->id_ventaMax();
-
-                $msg = "modificado";
-            }else{
-                $msg = "Error al modificar ingreso de producto";
+            if ($datos['cantidad'] < $total_cantidad) {
+                $msg = "Cantidad en almacen no diponibles. ".$datos['cantidad']. " productos en existencia";
+            }else {
+                $data = $this->model->actualizarDetalle($precio_venta, $total_cantidad,$sub_total, $id_producto, $id_usuario);
+                if ($data =="modificado") {  
+                    $id_ventaMax = $this->model->id_ventaMax();
+    
+                    $msg = "modificado";
+                }else{
+                    $msg = "Error al modificar ingreso de producto";
+                }
             }
 
         }
