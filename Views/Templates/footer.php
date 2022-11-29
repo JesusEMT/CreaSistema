@@ -53,6 +53,10 @@
         </script>    
         <script src="<?php echo base_url; ?>Assets/js/sweetalert2.all.min.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+        <!-- <script src="<?php echo base_url; ?>Assets/js/chart.umd.js"></script> -->
+
+        
         <script src="<?php echo base_url; ?>Assets/js/funcion.js"></script>
     </body>
 </html>

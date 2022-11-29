@@ -28,7 +28,7 @@ function frmLogin(e){
                 
                 if (res =="ok") {                                     //Si la respuesta es ok abimos una vista
                     //console.log("entre");
-                    window.location = base_url+"Usuarios";           //Se concatena al controlador ya que por defecto ejecuta el metodo index
+                    window.location = base_url+ "Configurar/home";           //Se concatena al controlador, redireccion despues de login
                 }else {
                     document.getElementById("alerta").classList.remove("d-none");
                     document.getElementById("alerta").innerHTML = res;

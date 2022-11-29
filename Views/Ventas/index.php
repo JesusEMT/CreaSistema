@@ -77,7 +77,7 @@
                 <!-- <th>Código</th> -->
                 <th>Nombre</th>
                 <th>Cantidad</th>
-                <th>Costo</th>
+                <th>Precio</th>
                 <th>Sub Total</th>
                 <th></th>
                 <!-- <th></th> -->

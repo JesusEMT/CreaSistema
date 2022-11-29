@@ -2300,3 +2300,88 @@ function alertas(mensaje,icono) {
     })
     
 }
+
+if (document.getElementById('productosMinimos')) {
+    reporteStock();
+    productosVendidos();
+}
+
+
+function reporteStock(){
+    const url = base_url + "Configurar/reporteStock";                
+    const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+    http.open("GET", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+    http.send();                                 //se envia al formulario
+
+    http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                const res = JSON.parse(this.responseText); 
+                let nombre = [];
+                let cantidad = [];
+                for (let i = 0; i < res.length; i++) {
+                    nombre.push(res[i]['nombre']);
+                    cantidad.push(res[i]['cantidad']);
+                    
+                }
+
+                // doughnut Chart productos minimos
+                var ctx = document.getElementById("productosMinimos");
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: nombre,
+                        datasets: [{
+                            data: cantidad,
+                            backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#FF6800','#8300FF','#FF00CD','#00FFB9','#808000', '#008080', '#808080' ],
+                        }],
+                    },
+                });  
+            }
+        } 
+
+
+}
+
+
+function productosVendidos(){
+    const url = base_url + "Configurar/productosVendidos";                
+    const http = new XMLHttpRequest();                            //instancia objeto XMLHTTPRequest
+    http.open("GET", url, true);                                 //Por metodo post enviamos url con true indicamos que de manera asincrona
+    http.send();                                 //se envia al formulario
+
+    http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(this.responseText);
+                const res = JSON.parse(this.responseText); 
+                let nombre = [];
+                let cantidad = [];
+                for (let i = 0; i < res.length; i++) {
+                    nombre.push(res[i]['nombre']);
+                    cantidad.push(res[i]['total']);
+                    
+                }
+
+                // Pie Chart productos mas vendidos
+                var ctx = document.getElementById("productosVendidos");
+                var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: nombre,
+                    datasets: [{
+                    data: cantidad,
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#FF6800','#8300FF','#FF00CD','#00FFB9','#808000', '#008080', '#808080' ],
+                    }],
+                },
+                });;  
+            }
+        } 
+
+
+}
+
+
+
+
+
+

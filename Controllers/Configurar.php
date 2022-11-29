@@ -16,6 +16,18 @@ class Configurar extends Controller{                         #clase usuarios her
         $this->views->getView($this, "index",$data);
     }   
 
+    public function home()
+    {
+        // if (empty($_SESSION['activo'])) {                  #Verificamos sino hay sesion activa
+        //     header("location: ".base_url);                 #
+        // }  
+        $data['usuario']= $this->model->getDatos('usuario');
+        $data['clientes']= $this->model->getDatos('clientes');
+        $data['productos']= $this->model->getDatos('productos');
+        $data['ventas']= $this->model->getVentas();
+        $this->views->getView($this, "home", $data);
+    }
+
     public function salir()
     {
         session_destroy();
@@ -44,4 +56,22 @@ class Configurar extends Controller{                         #clase usuarios her
         echo json_encode($msg, JSON_UNESCAPED_UNICODE);
         die(); 
     }
+
+    public function reporteStock()
+    {
+        $data= $this->model->getStockMinimo();
+        // print_r($data);
+        echo json_encode($data);
+        die(); 
+    }
+
+    public function productosVendidos()
+    {
+        $data= $this->model->getMasVendidos();
+        // print_r($data);
+        echo json_encode($data);
+        die(); 
+    }
+
+
 }

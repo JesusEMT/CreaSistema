@@ -14,6 +14,21 @@ class ConfigurarModel extends Query{                                  #heredados
         return $data;
     }
 
+    public function getDatos(string $table)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM $table";
+        $data = $this->select($sql);
+        return $data;
+        
+    }
+
+    public function getVentas()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM ventas WHERE fecha > CURDATE() ";
+        $data = $this->select($sql);
+        return $data;
+    }
+
     public function modificarEmp(string $nombre, string $RFC ,string $telefono,string $direccion,string $num,string $email,string $mensaje,int $id )
     {
         //igualamos variables con valores de paremetros recibidos
@@ -35,6 +50,21 @@ class ConfigurarModel extends Query{                                  #heredados
             $res = "error";
         }
         return $res;
+    }
+
+
+    public function getStockMinimo()
+    {
+        $sql = "SELECT * FROM productos WHERE cantidad < 50 ORDER BY cantidad DESC LIMIT 10";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
+    public function getMasVendidos()
+    {
+        $sql = "SELECT dv.id_producto, dv.cantidad, p.ID, p.nombre, SUM(dv.cantidad) AS total FROM detalle_ventas dv INNER JOIN productos p ON p.ID = dv.id_producto GROUP BY dv.id_producto ORDER BY dv.cantidad  DESC LIMIT 10";
+        $data = $this->selectAll($sql);
+        return $data;
     }
     
 }
