@@ -1,8 +1,8 @@
 <?php include "Views/Templates/header.php"; ?>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Usuarios</li>
-</ol>
-<button class="btn btn-primary mb-2" type="button" onclick="frmUsuario();"> <i class= "fas fa-plus">  </i></button>
+<div class="card-header text-white" style="background-color: #F08080;">
+        <h4>Usuarios</h4>
+    </div>
+<button class="btn btn-primary mb-2 mt-3" type="button" onclick="frmUsuario();"> <i class= "fas fa-plus">  </i></button>
 
 <div class="table-responsive">
 <table class="table table-light" id= "tblUsuarios">
@@ -62,14 +62,14 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="direccion">Dirección *</label>
-                                <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección" rows="2"></textarea>
+                                <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección"  rows="1"></textarea>
 
                             </div>                           
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="num">Número *</label>
-                                <input id="num" class="form-control" type="number" name="num" placeholder="Núm.">
+                                <input id="num" class="form-control" type="number" min="0" name="num" placeholder="Núm.">
                             </div>
                         </div>
                     </div> 

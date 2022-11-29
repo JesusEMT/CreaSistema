@@ -2158,7 +2158,7 @@ function cargarDetalleTV(){
             let html = '';
             res['detalle_tabla'].forEach(row => {                   //nombre parametrodel data nombra en el controlador
                 html += `<tr>
-                    <td>${row['ID_DTV']}</td>
+ 
                     <td>${row['nombre']}</td>
                     <td>${row['cantidad_dtv']}</td>
                     <td>${row['precio_dtv']}</td>

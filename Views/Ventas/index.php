@@ -73,7 +73,7 @@
         <thead class="thead-dark">
             <tr>
                 <!-- <th>ID</th> -->
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <!-- <th>Código</th> -->
                 <th>Nombre</th>
                 <th>Cantidad</th>

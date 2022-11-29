@@ -1,8 +1,11 @@
 <?php include "Views/Templates/header.php"; ?>
-<ol class="breadcrumb mb-4">
+<!-- <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Clientes</li>
-</ol>
-<button class="btn btn-primary mb-2" type="button" onclick="frmCliente();"><i class= "fas fa-plus"></i></button>
+</ol> -->
+<div class="card-header text-white" style="background-color: #F08080;">
+        <h4>Clientes</h4>
+    </div>
+<button class="btn btn-primary mb-2 mt-3" type="button" onclick="frmCliente();"><i class= "fas fa-plus"></i></button>
 <div class="table-responsive">
 
 <table class="table table-light" id="tblClientes">
@@ -67,7 +70,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="num">Número</label>
-                                <input id="num" class="form-control" type="number" name="num" placeholder="Núm.">
+                                <input id="num" class="form-control" type="number" min="1" name="num" placeholder="Núm.">
                             </div>
                         </div>
                     </div>        

@@ -191,6 +191,7 @@ class Ventas extends Controller{
         // $pdf->Ln(20);
         $pdf->SetFont('Arial','B',12);
         $pdf->Cell(40,8,utf8_decode($empresa['nombre']),0,1,'L');
+         $pdf->Ln(2);
 
         $pdf->SetFont('Arial','B',8);
         $pdf->Cell(15,5, utf8_decode('RFC:'),0,0,'L');
@@ -227,10 +228,15 @@ class Ventas extends Controller{
          
          $pdf->SetFont('Arial','B',8);        
          $pdf->Cell(15,5, utf8_decode('Cliente :'),0,0,'L');
-         $pdf->Cell(40,5,$nombre_completo,0,1,'L');   
+         $pdf->SetFont('Arial','',8);
+         $pdf->Cell(40,5,$nombre_completo,0,1,'L');  
+         $pdf->SetFont('Arial','B',8); 
          $pdf->Cell(15,5, utf8_decode('Telefono:'),0,0,'L');
+         $pdf->SetFont('Arial','',8);
          $pdf->Cell(40,5, utf8_decode($venta[0]['telefono']),0,1,'L');
+         $pdf->SetFont('Arial','B',8);
          $pdf->Cell(15,5, utf8_decode('Dirección:'),0,0,'L');
+         $pdf->SetFont('Arial','',8);
          $pdf->Cell(20,5,$direccion_completa_cli,0,1,'L');      
          $pdf->Ln(10);
 
@@ -259,6 +265,10 @@ class Ventas extends Controller{
         $pdf->SetFont('Arial','B',10);
         $pdf->Cell(70,6, utf8_decode('Total a pagar'),0,1,'R');
         $pdf->Cell(70,6, utf8_decode($row['total']),0,0,'R');
+
+        $pdf->Ln(20);
+        $pdf->SetFont('Arial','B',8);
+        $pdf->Cell(70,8,utf8_decode($empresa['mensaje']),0,1,'C');
 
 
         $pdf->Output();

@@ -2,7 +2,7 @@
 <!-- <ol class="breadcrumb mb-4 ">
 <li class="breadcrumb-item active">Productos</li>
 </ol> -->
-<div class="card-header text-white" style="background-color: #C3FAFC;">
+<div class="card-header text-white" style="background-color: #F08080;">
         <h4>Productos </h4>
     </div>
 <button class="btn btn-primary mb-2 mt-3" type="button" onclick="frmProducto();"> <i class= "fas fa-plus">  </i></button>

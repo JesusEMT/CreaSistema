@@ -1,6 +1,8 @@
 <?php include "Views/Templates/header.php"; ?>
-
-<div class="table-responsive">
+<div class="card-header text-white" style="background-color: #F08080;">
+        <h4>Historial producción</h4>
+    </div>
+<div class="table-responsive mt-3">
 <table class="table table-light" id="tbl_historial_compras">
     <thead class="thead-light">
         <tr>

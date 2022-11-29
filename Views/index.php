@@ -10,12 +10,12 @@
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
         <script src="<?php echo base_url; ?>Assets/js/all.js" crossorigin="anonymous"></script>
     </head>
-    <body class="bg-primary">
+    <body style="background: url(Assets/img/CreaCosmeticaFondo.png); background-size: cover ">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
                     <div class="container">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center" style="opacity: .95";>
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Iniciar Sesión</h3></div>
@@ -31,8 +31,8 @@
                                             </div>
                                             <div class="alert alert-danger text-center d-none" id="alerta" role="alert">                                                
                                             </div>
-                                            <div class="form group d-flex align-items-center justify-content-between mt-4 mb-0">                                            
-                                               <button class="btn btn-primary" type="submit" onclick="frmLogin(event);">Entrar</button>
+                                            <div class="form group d-flex align-items-center justify-content-between mt-4 mb-0" >                                            
+                                               <button class="btn btn-primary"  style="background-color: #0442F4; opacity:100"; type="submit" onclick="frmLogin(event);">Entrar</button>
                                             </div>
                                         </form>
                                     </div>                                    
