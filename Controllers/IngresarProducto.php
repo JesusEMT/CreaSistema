@@ -129,6 +129,14 @@ class IngresarProducto extends Controller{
     {
 
         $empresa= $this->model->getEmpresa();               //Traer los datos de la tabla empresa
+        if (empty($empresa['nombre'])) $empresa['nombre'] = "Sin especificar";
+        if (empty($empresa['RFC'])) $empresa['RFC'] = "Sin especificar";
+        if (empty($empresa['telefono'])) $empresa['telefono'] = "Sin especificar";
+        if (empty($empresa['direccion'])) $empresa['direccion'] = "Sin especificar";
+        if (empty($empresa['num_dir_empresa'])) $empresa['num_dir_empresa'] = "Sin especificar";
+        if (empty($empresa['email_empresa'])) $empresa['email_empresa'] = "Sin especificar";
+        if (empty($empresa['mensaje'])) $empresa['mensaje'] = "Sin especificar";
+        if (empty($empresa['ID'])) $empresa['ID'] = 1;
         $compra= $this->model->getCompra($id_compra);
         $nombre_completo= ($compra["nombre_usuario"]." ".$compra['paterno_usuario']." ".$compra['materno_usuario']);
         $direccion_completa= ($empresa["direccion"]."  #".$empresa['num_dir_empresa']);

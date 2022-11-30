@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
            {'data': 'num_dir'},
            {'data': 'telefono_usuario'},
            {'data': 'email_usuario'},
-           {'data': 'nombre_caja'},
+        //    {'data': 'nombre_caja'},
            {'data': 'estado_usuario'},
            {'data': 'acciones'}     
         ],
@@ -2219,7 +2219,7 @@ function btnGenerarVenta() {
       }).then((result) => {
         if (result.isConfirmed) {
             const id_cliente = document.getElementById('SelectCliente').value;
-            const url = base_url + "ventas/registrarVenta/" + id_cliente;
+            const url = base_url + "Ventas/registrarVenta/" + id_cliente;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();

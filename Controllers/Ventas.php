@@ -171,6 +171,15 @@ class Ventas extends Controller{
     {
 
         $empresa= $this->model->getEmpresa();               //Traer los datos de la tabla empresa
+        if (empty($empresa['nombre'])) $empresa['nombre'] = "Sin especificar";
+        if (empty($empresa['RFC'])) $empresa['RFC'] = "Sin especificar";
+        if (empty($empresa['telefono'])) $empresa['telefono'] = "Sin especificar";
+        if (empty($empresa['direccion'])) $empresa['direccion'] = "Sin especificar";
+        if (empty($empresa['num_dir_empresa'])) $empresa['num_dir_empresa'] = "S/N";
+        if (empty($empresa['email_empresa'])) $empresa['email_empresa'] = "Sin especificar";
+        if (empty($empresa['mensaje'])) $empresa['mensaje'] = "Gracias";
+        if (empty($empresa['ID'])) $empresa['ID'] = 1;
+
         $venta= $this->model->getDetalleVenta($id_ventaMax);
         $nombre_completo= ($venta[0]["nombre"]." ".$venta[0]['paterno_cli']." ".$venta[0]['materno_cli']);
         $direccion_completa= ($empresa["direccion"]."  #".$empresa['num_dir_empresa']);

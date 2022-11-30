@@ -29,6 +29,32 @@ class ConfigurarModel extends Query{                                  #heredados
         return $data;
     }
 
+
+    public function CrearEmpresa()
+    {
+        //igualamos variables con valores de paremetros recibidos
+        $this->nombre = "Sin especificar";
+        $this->RFC = "Sin especificar";
+        $this->telefono = "Sin especificar";
+        $this->direccion = "Sin especificar";
+        $this->num = "S/N";
+        $this->mensaje = "Sin especificar";
+        $this->email = "Sin especificar";
+    
+
+        $sql = "INSERT INTO empresa(nombre, RFC, telefono, direccion, num_dir_empresa, email_empresa, mensaje) VALUES (?,?,?,?,?,?,?)";   //query que se enviara con nombres de base de datos
+        $datos = array($this->nombre, $this->RFC, $this->telefono, $this->direccion, $this->num, $this->email, $this->mensaje);
+        $data = $this->save($sql, $datos);
+        if ($data == 1) {
+            $res = "ok";
+        } else {
+            $res = "error";
+        }
+        return $res;
+    }
+
+
+
     public function modificarEmp(string $nombre, string $RFC ,string $telefono,string $direccion,string $num,string $email,string $mensaje,int $id )
     {
         //igualamos variables con valores de paremetros recibidos

@@ -13,6 +13,16 @@ class Configurar extends Controller{                         #clase usuarios her
         //     header("location: ".base_url);                 #
         // }  
         $data= $this->model->getEmpresa();
+        // if (empty($data['nombre'])) $data['nombre'] = "Sin especificar";
+        // if (empty($data['RFC'])) $data['RFC'] = "Sin especificar";
+        // if (empty($data['telefono'])) $data['telefono'] = "Sin especificar";
+        // if (empty($data['direccion'])) $data['direccion'] = "Sin especificar";
+        // if (empty($data['num_dir_empresa'])) $data['num_dir_empresa'] = "Sin especificar";
+        // if (empty($data['email_empresa'])) $data['email_empresa'] = "Sin especificar";
+        // if (empty($data['mensaje'])) $data['mensaje'] = "Sin especificar";
+        if (empty($data['ID'])) $data= $this->model->crearEmpresa();  
+        $data= $this->model->getEmpresa();
+
         $this->views->getView($this, "index",$data);
     }   
 
@@ -38,14 +48,14 @@ class Configurar extends Controller{                         #clase usuarios her
         // print_r($_POST);
         // exit;
 
-        $nombre = $_POST['nombre'];
-        $RFC = $_POST['rfc'];
-        $telefono = $_POST['telefono'];
-        $direccion = $_POST['direccion'];
-        $num = $_POST['num_dir_empresa'];
-        $email = $_POST['correo'];
-        $mensaje = $_POST['mensaje'];
-        $id = $_POST['id'];
+        $nombre = $_POST['nombre'];         
+        $RFC = $_POST['rfc'];               
+        $telefono = $_POST['telefono'];     
+        $direccion = $_POST['direccion'];   
+        $num = $_POST['num_dir_empresa'];   
+        $email = $_POST['correo'];          
+        $mensaje = $_POST['mensaje'];       
+        $id = $_POST['id'];       
 
         $data= $this->model->modificarEmp( $nombre, $RFC , $telefono, $direccion, $num, $email, $mensaje, $id);
             if ($data == "ok") {

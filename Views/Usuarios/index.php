@@ -17,7 +17,7 @@
             <th>Num</th>
             <th>Telefono</th>
             <th>Correo</th>
-            <th>Rol</th>
+            <!-- <th>Rol</th> -->
             <th>Estado</th>
             <th></th>
             <!-- <th></th> -->
