@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
     //tabla Historial Ventas
     tbl_historial_ventas= $('#tbl_historial_ventas').DataTable( {
         ajax: {
-            url: base_url + "ventas/listar_historial",
+            url: base_url + "Ventas/listar_historial",
             dataSrc: ''
         },
         columns: 
@@ -2408,7 +2408,7 @@ function productosVendidos(){
                     backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#FF6800','#8300FF','#FF00CD','#00FFB9','#808000', '#008080', '#808080' ],
                     }],
                 },
-                });;  
+                });  
             }
         } 
 

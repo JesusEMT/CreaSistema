@@ -11,7 +11,7 @@ function frmLogin(e){
     }else if (pass.value == "") {
         usuario.classList.remove("is-invalid");
         pass.classList.add("is-invalid");
-        pass.focus()
+        pass.focus();
     }else{
         const url = base_url + "Usuarios/validar";
         const frm = document.getElementById("frmLogin");

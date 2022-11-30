@@ -189,7 +189,7 @@ class VentasModel extends Query{                                  #heredados de 
     }
 
 
-    public function actualizarProductosVenta(int $cantidad_nueva, int $id_producto, )
+    public function actualizarProductosVenta(int $cantidad_nueva, int $id_producto )
     {
         $this->cantidad_nueva = $cantidad_nueva;
         $this->id_producto = $id_producto;
