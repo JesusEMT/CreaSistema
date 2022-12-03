@@ -36,7 +36,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="cantidad_ingresar">Cantidad *</label>
-                        <input id="cantidad_ingresar" class="form-control" type="number" name="cantidad_ingresar" placeholder="Cantidad" >
+                        <input id="cantidad_ingresar" class="form-control" type="number"  maxlength="5" name="cantidad_ingresar" placeholder="Cantidad" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
                     </div>
                 </div>
                 <div class="col-md-2">

@@ -32,13 +32,13 @@ class ClientesModel extends Query{                                  #heredados d
         $this->direccion =$direccion;
         $this->num = $num;
         
-        $verificar = "SELECT * FROM clientes WHERE telefono = '$this->telefono'"; //verifica si la clave_usuario(DB) es igual al usuario (varibale ingresada)
-        $existe = $this->select($verificar);                                   //se usa el metodo select creado en query
-        if (empty($existe)) {                                                //verifica si NO dato en la variable
+        $verificar = "SELECT * FROM clientes WHERE telefono = '$this->telefono'";       //verifica si la clave_usuario(DB) es igual al usuario (varibale ingresada)
+        $existe = $this->select($verificar);                                            //se usa el metodo select creado en query
+        if (empty($existe)) {                                                           //verifica si NO dato en la variable
             $sql = "INSERT INTO clientes(telefono, nombre, paterno_cli, materno_cli, email, direccion,num_dir_cli) VALUES (?,?,?,?,?,?,?)";   //query que se enviara con nombres de base de datos
             $datos = array($this->telefono, $this->nombre,$this->paterno,$this->materno, $this->email, $this->direccion,$this->num); //estos valores se envian a metodo save en Query
-            $data = $this->save($sql, $datos);                              //se llama el metodo save de Query y envia los dos parametros
-            if ($data == 1) {                                               //verifica si el insert fue correcto
+            $data = $this->save($sql, $datos);                                          //se llama el metodo save de Query y envia los dos parametros
+            if ($data == 1) {                                                           //verifica si el insert fue correcto
                 $res = "ok";
             }else{
                 $res = "error";

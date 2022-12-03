@@ -57,10 +57,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-users text-primary"></i></div>
                                 Clientes                                
                             </a>
-                            <a class="nav-link" href="<?php echo base_url;?>Medidas">
+                            <!-- <a class="nav-link" href="<?php echo base_url;?>Medidas">
                                 <div class="sb-nav-link-icon"><i class="fas fa-balance-scale-left mr-2 text-primary"></i></div>
                                 Medidas                                
-                            </a>
+                            </a> -->
                             <a class="nav-link" href="<?php echo base_url;?>Categorias">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users text-primary"></i></div>
                                 Categorias                                

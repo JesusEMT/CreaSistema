@@ -55,13 +55,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="precio_creacion">Precio Creación *</label>
-                                <input id="precio_creacion" class="form-control" type="text" name="precio_creacion" placeholder= "Precio Creación">
+                                <input id="precio_creacion" class="form-control" type="number" min="0" name="precio_creacion" placeholder= "Precio Creación" onKeypress="if (event.keyCode < 46 || event.keyCode > 57 || event.keyCode == 47 ) event.returnValue = false;">
                             </div>
                         </div>
                         <div class="col-md-6">
                         <div class="form-group">
                                 <label for="precio_venta">Precio Venta *</label>
-                                <input id="precio_venta" class="form-control" type="text" name="precio_venta" placeholder= "Precio Venta">
+                                <input id="precio_venta" class="form-control" type="number" min="0" name="precio_venta" placeholder= "Precio Venta" onKeypress="if (event.keyCode < 46 || event.keyCode > 57 || event.keyCode == 47 ) event.returnValue = false;">
                             </div>
                         </div>
                     </div> 

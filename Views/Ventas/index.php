@@ -36,7 +36,7 @@
                 <div class="col-md-2 mt-3">
                     <div class="form-group">
                         <label for="cantidad_ingresar">Cant *</label>
-                        <input id="cantidad_ingresar" class="form-control" type="number" min="0" name="cantidad_ingresar" placeholder="Cantidad" >
+                        <input id="cantidad_ingresar" class="form-control" type="number" maxlength="10" min="0" name="cantidad_ingresar" placeholder="Cantidad" onKeypress="if (event.keyCode < 46 || event.keyCode > 57 || event.keyCode == 47 ) event.returnValue = false;" >
                     </div>
                 </div>                
                 <div class="col-md-2 mt-3">
@@ -93,27 +93,24 @@
             <label for="SelectCliente">Seleccionar Cliente</label>
             <select id="SelectCliente" class=" form-control" name="SelectCliente" placeholder="Cliente">
                 <?php foreach ($data as $row) {  ?>  
-                <option value= "<?php echo $row['ID']; ?>"><?php echo $row["telefono"];?> </option>
+                <option value= "<?php echo $row['ID']; ?>"><?php echo $row["telefono"];?>  </option>
                 <!-- <option value= "<?php echo $row['ID']; ?>"><?php echo $row["nombre"]." ".$row['paterno_cli']." ".$row['materno_cli'];?> </option> -->
+                
                 <?php } ?>
             </select>
         </div> 
     </div>
 
+    
+
     <!-- <div class="col-md-3">
         <div class="form-group">
-            <label for="cliente"><i class="fas fa-users"></i> Nombre cliente</label>
-            <input value= "<?php echo $data["nombre"]." ".$data['paterno_cli']." ".$data['materno_cli'];?>  ">
-        </div>       
-    </div>
-
-    <div class="col-md-3">
-        <div class="form-group">
             <label for="direccion"><i class="fas fa-home"></i> Dirección</label>
-            <input id="direccion" class="form-control" type="text" name="direccion" placeholder="Dirección" disabled>
+            <input id="direccion_VCli" class="form-control" type="text" name="direccion" placeholder="Dirección" disabled>
         </div>       
     </div> -->
-
+    
+    <?php ; ?>
     <div class="col-md-3 ml-auto">
             <div class="form-group">
                 <label for="total_venta" class="font-weight-bold">Total a pagar</label>

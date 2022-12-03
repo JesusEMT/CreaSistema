@@ -43,60 +43,60 @@
                     <div class="form-group">
                         <label for="usuario">Usuario *</label>
                         <input type="hidden" id="id" name="id">
-                        <input id="usuario" class="form-control" type="text" name="usuario" placeholder="Usuario">
+                        <input id="usuario" class="form-control" type="text" maxlength="15" name="usuario" placeholder="Usuario">
                     </div>                 
                     <div class="form-group ">
                         <label for="nombre">Nombre *</label>
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre">
+                        <input id="nombre" class="form-control" type="text" maxlength="30" name="nombre" placeholder="Nombre">
                     </div>
                     <div class="form-group ">
                         <label for="paterno">Apellido paterno *</label>
-                        <input id="paterno" class="form-control" type="text" name="paterno" placeholder="Apellido paterno">
+                        <input id="paterno" class="form-control" type="text" maxlength="30" name="paterno" placeholder="Apellido paterno">
                     </div>
                     <div class="form-group ">
                         <label for="materno">Apellido materno *</label>
-                        <input id="materno" class="form-control" type="text" name="materno" placeholder="Apellido materno">
+                        <input id="materno" class="form-control" type="text" maxlength="30" name="materno" placeholder="Apellido materno">
                     </div>
 
                     <div class="row" id="dirYnum">
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="direccion">Dirección *</label>
-                                <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección"  rows="1"></textarea>
+                                <textarea id="direccion" class="form-control" maxlength="30" name="direccion" placeholder="Dirección"  rows="1"></textarea>
 
                             </div>                           
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="num">Número *</label>
-                                <input id="num" class="form-control" type="number" min="0" name="num" placeholder="Núm.">
+                                <input id="num" class="form-control" type="number" maxlength="10" min="1" name="num" placeholder="Núm." placeholder= "Precio Creación" onKeypress="if (event.keyCode < 48 || event.keyCode > 57 ) event.returnValue = false;">
                             </div>
                         </div>
                     </div> 
                     <div class="form-group">
                         <label for="telefono">Telefono *</label>
-                        <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Teléfono">
+                        <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Teléfono" maxlength="15" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
                     </div>
                     <div class="form-group">
                         <label for="email">Correo electronico *</label>
-                        <input id="email" class="form-control" type="text" name="email" placeholder="Correo electronico">
+                        <input id="email" class="form-control" type="text" name="email" maxlength="30" placeholder="Correo electronico" >
                     </div>                    
                     <div class="row" id="passYconf">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pass">Contraseña *</label>
-                                <input id="pass" class="form-control" type="password" name="pass" placeholder="Contraseña">
+                                <input id="pass" class="form-control" type="password" maxlength="16" name="pass" placeholder="Contraseña" >
                             </div>                            
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="confirmar">Confirmar Contraseña *</label>
-                                <input id="confirmar" class="form-control" type="password" name="confirmar" placeholder="Confirmar contraseña">
+                                <input id="confirmar" class="form-control" type="password" maxlength="16" name="confirmar" placeholder="Confirmar contraseña">
                             </div>
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label for="caja">Caja</label>
+                        <label for="caja">Rol</label>
                         <select id="caja" class="form-control" name="caja">                            
                             <?php foreach ($data['cajas'] as $row) { ?>
                                 <option value="<?php echo $row['ID_caja']; ?>"><?php echo $row['nombre_caja']; ?></option>

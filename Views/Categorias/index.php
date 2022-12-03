@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label for="nombre">Nombre *</label>
                         <input type="hidden" id="id" name="id">
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre Categoria">
+                        <input id="nombre" class="form-control" type="text" maxlength="25" name="nombre" placeholder="Nombre Categoria">
                     </div>
                     <button class="btn btn-primary" type="button" onclick="registrarCat(event);" id="btnAccionModel">Registrar</button>
                     <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 

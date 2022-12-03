@@ -5,6 +5,37 @@ let tblUsuarios, tblClientes, tblCajas, tblMedidas, tblCategorias, tblProductos,
 document.addEventListener("DOMContentLoaded", function(){       //Verica si documento ya se cargo
     
     $('#SelectCliente').select2();  
+
+    // $(document).on('change', '#SelectCliente', function() {
+    //     var r = $('select.form-control option[value="'+$(this).val()+'"]').attr("data-typeid")
+    //     $("direccion_VCli").val(r)
+    //     });
+
+        // const nombreCliVen = document.querySelector('#SelectCliente');
+        // // console.log(nombreCliVen);
+
+        // nombreCliVen.addEventListener('change', () =>{
+        //     let valorOption = nombreCliVen.value;
+        //     console.log(valorOption);
+            
+        //     // var optionSelect = nombreCliVen.options[nombreCliVen.selectedIndex];
+            
+        //     // console.log("ID:", optionSelect.value);
+        //     // console.log("telefono:", optionSelect.text);
+
+
+        //     // let inputResult  = document.querySelector('#direccion_VCli').value =(optionSelect.text)+'-'+optionSelect.value ;
+
+
+        // });
+
+
+
+
+
+
+   
+
     // $("#SelectCliente").select2({
     // //     tags: true
     // // theme: 'bootstrap',
@@ -89,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            // postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -169,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -244,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -318,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -396,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -473,7 +504,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -569,7 +600,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -645,7 +676,7 @@ document.addEventListener("DOMContentLoaded", function(){       //Verica si docu
         {
             extend: 'colvis',
             text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
+            //postfixButtons: ['colvisRestore']
         }
         ]
     } );
@@ -2041,6 +2072,11 @@ function frmVenta() {
     document.getElementById("btnAgregar").innerHTML = "Agregar";
     document.getElementById("frmVenta").reset();                              //limpia formulario de registros de la funcion editar
     document.getElementById("id").value=""; 
+
+
+
+
+
     // $("#nuevo_producto").modal("show");    
 }
 
@@ -2299,6 +2335,8 @@ function btnAnularVenta($id_venta) {
     })
 }
 
+
+
 //----------- FIN VENTAS ----------------------------------------------------------------------------------------
 
 
@@ -2364,10 +2402,11 @@ function reporteStock(){
                 // doughnut Chart productos minimos
                 var ctx = document.getElementById("productosMinimos");
                 var myPieChart = new Chart(ctx, {
-                    type: 'pie',
+                    type: 'bar',
                     data: {
-                        labels: nombre,
+                        labels: nombre,                        
                         datasets: [{
+                            label: 'En almacén',
                             data: cantidad,
                             backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#FF6800','#8300FF','#FF00CD','#00FFB9','#808000', '#008080', '#808080' ],
                         }],
@@ -2406,6 +2445,7 @@ function productosVendidos(){
                     datasets: [{
                     data: cantidad,
                     backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#FF6800','#8300FF','#FF00CD','#00FFB9','#808000', '#008080', '#808080' ],
+                    
                     }],
                 },
                 });  
@@ -2432,11 +2472,3 @@ if (document.getElementById('productosMinimos')) {
     reporteStock();
     productosVendidos();
 }
-
-
-
-
-
-
-
-

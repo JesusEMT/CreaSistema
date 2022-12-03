@@ -41,36 +41,36 @@
                     <div class="form-group">
                         <input type="hidden" id="id" name="id">
                         <label for="telefono">Telefono *</label>
-                        <input id="telefono" class="form-control" type="text" name="telefono" placeholder="Teléfono">
+                        <input id="telefono" class="form-control" type="text" maxlength="15" name="telefono" placeholder="Teléfono" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
                     </div>                                                  
                     <div class="form-group">
                         <label for="nombre">Nombre *</label>
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre">
+                        <input id="nombre" class="form-control" type="text" maxlength="50" name="nombre" placeholder="Nombre">
                     </div>  
                     <div class="form-group ">
                         <label for="paterno">Apellido paterno *</label>
-                        <input id="paterno" class="form-control" type="text" name="paterno" placeholder="Apellido paterno">
+                        <input id="paterno" class="form-control" type="text" maxlength="50" name="paterno" placeholder="Apellido paterno">
                     </div>
                     <div class="form-group ">
                         <label for="materno">Apellido materno *</label>
-                        <input id="materno" class="form-control" type="text" name="materno" placeholder="Apellido materno">
+                        <input id="materno" class="form-control" type="text" maxlength="50" name="materno" placeholder="Apellido materno">
                     </div> 
                                      
                     <div class="form-group">
                         <label for="email">Correo electronico</label>
-                        <input id="email" class="form-control" type="text" name="email" placeholder="Correo electronico">
+                        <input id="email" class="form-control" type="text" maxlength="30" name="email" placeholder="Correo electronico">
                     </div>                     
                     <div class="row" id="dirYnumCli">
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="direccion">Dirección</label>
-                                <textarea id="direccion" class="form-control" name="direccion" placeholder="Dirección" rows="2"></textarea>
+                                <textarea id="direccion" class="form-control" maxlength="50" name="direccion" placeholder="Dirección" rows="2"></textarea>
                             </div>                           
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="num">Número</label>
-                                <input id="num" class="form-control" type="number" min="1" name="num" placeholder="Núm.">
+                                <input id="num" class="form-control" type="number" maxlength="5" min="1" name="num" placeholder="Núm." onKeypress="if (event.keyCode < 48 || event.keyCode > 57 ) event.returnValue = false;">
                             </div>
                         </div>
                     </div>        

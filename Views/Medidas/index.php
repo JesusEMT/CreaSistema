@@ -38,11 +38,11 @@
                     <div class="form-group">
                         <input type="hidden" id="id" name="id">
                         <label for="nombre">Nombre de medida *</label>
-                        <input id="nombre" class="form-control" type="text" name="nombre" placeholder="Nombre medida">
+                        <input id="nombre" class="form-control" type="text" maxlength="20" name="nombre" placeholder="Nombre medida">
                     </div>                                                  
                     <div class="form-group">
                         <label for="nombre_corto">Abreviatura *</label>
-                        <input id="nombre_corto" class="form-control" type="text" name="nombre_corto" placeholder="Abrviatura">
+                        <input id="nombre_corto" class="form-control" type="text" maxlength="10" name="nombre_corto" placeholder="Abrviatura">
                     </div>                            
                     <button class="btn btn-primary" margin-top: 5px; type="button" onclick="registrarMedida(event);" id="btnAccionModel">Registrar</button>
                     <button class="btn btn-danger" type="button"data-bs-dismiss="modal">Cancelar</button> 

@@ -81,7 +81,7 @@ class ConfigurarModel extends Query{                                  #heredados
 
     public function getStockMinimo()
     {
-        $sql = "SELECT * FROM productos WHERE cantidad < 50 ORDER BY cantidad DESC LIMIT 10";
+        $sql = "SELECT * FROM productos WHERE cantidad < 40 ORDER BY cantidad DESC LIMIT 10";
         $data = $this->selectAll($sql);
         return $data;
     }
