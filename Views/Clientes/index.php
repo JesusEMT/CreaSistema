@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <input type="hidden" id="id" name="id">
                         <label for="telefono">Telefono *</label>
-                        <input id="telefono" class="form-control" type="text" maxlength="15" name="telefono" placeholder="Teléfono" onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;">
+                        <input id="telefono" class="form-control" type="text" maxlength="15" name="telefono" placeholder="Teléfono" onKeypress="if (event.keyCode < 48 || event.keyCode > 57 || event.keyCode == 123 ) event.returnValue = false;">
                     </div>                                                  
                     <div class="form-group">
                         <label for="nombre">Nombre *</label>

@@ -18,7 +18,7 @@ class ProductosModel extends Query{                                  #heredados 
 
     public function getCategorias()
     {
-        $sql = "SELECT * FROM categorias WHERE estado = 1";
+        $sql = "SELECT * FROM categorias WHERE estado = 1 ORDER BY nombre  ASC";
         $data = $this->selectAll($sql);
         return $data;
     }

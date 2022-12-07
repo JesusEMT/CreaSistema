@@ -1732,6 +1732,7 @@ function registrarIngre(e){
 }
 
 function btnEditarIngre(ID) {
+    
     document.getElementById("title_modal").innerHTML = "Actualizar Ingrediente";  //cambia el titulo del modal con id=title_modal 
     document.getElementById("btnAccionModel").innerHTML = "Modificar";
     const url = base_url + "Ingredientes/editar/"+ ID;
